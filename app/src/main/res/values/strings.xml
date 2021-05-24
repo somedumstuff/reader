@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">readerzeropointone</string>
+    <string name="yourSubs">your subs</string>
+    <string name="placeholder_heading">Heres the headline for you: shits fucked. Like super fucked.</string>
+    <string name="placeholder_subtitle">Heres the subtitle for you: shits fucked again.</string>
+    <string name="placeholder_article_content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam sem et tortor consequat id porta nibh. Dui accumsan sit amet nulla facilisi. Cras pulvinar mattis nunc sed blandit libero volutpat. Rhoncus est pellentesque elit ullamcorper dignissim. Nec nam aliquam sem et tortor consequat id porta. Aenean sed adipiscing diam donec adipiscing tristique. Sed nisi lacus sed viverra. Fermentum iaculis eu non diam phasellus vestibulum.
+Aenean sed adipiscing diam donec adipiscing tristique. Sed nisi lacus sed viverra. Fermentum iaculis eu non diam phasellus vestibulum.
+    </string>
+    <string-array name="testHeadlines">
+        <item>Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire.</item>
+        <item>Yeah its as bad as the previous headline says. Also the fire was caused by a gender reveal party. Sigh.</item>
+        <item>Oh look everyone is happy about a 80 year old struggling to make ends meet, because the video is so cute</item>
+        <item>Oooo! Look at these cute kittens. They are so adorable. Just look at them being such dorks and adorable all at the same time.</item>
+        <item>Doomer pilled we are. Heavily. Twitter only makes it worse. Stop DOOMSCROLLING NOW!</item>
+        <item>I NEED HELP. I STAY ON TWITTER FOR FAR TOO LONG. WHY. WHY?????????</item>
+    </string-array>
+    <string-array name="testSubtitles">
+        <item>Climate change is very real. Do not believe what your grandma says from Facebook.</item>
+        <item>If you dont burn down an entire forest are you really celebrating your childs birth?</item>
+        <item>I mean, i- I guess thats capitalism for you huh. Welcome to the real world I guess.</item>
+        <item>Cats rule. Theyre cute af.</item>
+        <item>Yes. Doomscrolling is a very real word and a problem.</item>
+        <item>You are stuck here forever muhahahah</item>
+    </string-array>
+    <string-array name="timePlaceHolders">
+        <item>11:30 | Monday</item>
+        <item>12:30 | Monday </item>
+        <item>13:30 | Monday</item>
+        <item>14:30 | Monday</item>
+        <item>15:30 | Monday</item>
+    </string-array>
+    <string-array name="authorPlaceHolders">
+        <item>Anaya Parsons</item>
+        <item>Aj West</item>
+        <item>Sanna Hancock</item>
+        <item>Jakub Baldwin</item>
+        <item>Heidi Simmonds</item>
+    </string-array>
+    <string-array name="continueReadingHeadlinesPlaceholder">
+        <item>Heres the headline: Why do you think this card will have some happy news? lol</item>
+        <item>Nothing new, everything is going down the shitter.</item>
+        <item>LOL BITCOIN DOWN BAD. ETH LOSES 50% OF ITS VALUE!</item>
+        <item>Doggos are dope. They are good frendos. Me like doggos.</item>
+        <item>HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAH</item>
+        <item>I spent some time with a conservative. God save this planet.</item>
+    </string-array>
+    <string-array name="continueReadingSubtitlesPlaceholder">
+        <item>Yeah, go back and sleep i guess.</item>
+        <item>And the shitter is clogged and overflowing.</item>
+        <item>TO THE MOOOOOOON!</item>
+        <item>Doggo cute widepeepoHappy</item>
+        <item>AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH</item>
+        <item>Just why do I put myself through hell.</item>
+    </string-array>
+    <string-array name="continueReadingAuthorPlaceHolders">
+        <item>Stacy Rios</item>
+        <item>Brenda Holloway</item>
+        <item>Mattie Crawford</item>
+        <item>Your mom</item>
+        <item>Me</item>
+    </string-array>
+    <string-array name="continueReadingTimePlaceHolders">
+        <item>14:30 | 02–02–2021</item>
+        <item>15:30 | 03–02–2021</item>
+        <item>16:30 | 04–02–2021</item>
+        <item>17:30 | 05–02–2021</item>
+        <item>18:30 | 01–02–2021</item>
+    </string-array>
+</resources>

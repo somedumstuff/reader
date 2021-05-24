@@ -19,29 +19,91 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fff"
-
             >
 
-                <!--CONTINUE READING-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/greetingUserGood"
+                    android:textSize="90sp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:text="Good"
+                    android:letterSpacing="-0.05"
+                    android:fontFamily="@font/montserratextralight"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/greetingUserTime"
+                    android:textSize="90sp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:text="Morning"
+                    android:letterSpacing="-0.05"
+                    android:fontFamily="@font/montserratextralight"
+                    app:layout_constraintTop_toBottomOf="@id/greetingUserGood"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/greetingUserName"
+                    android:textSize="90sp"
+                    android:letterSpacing="-0.05"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:text="Deepak."
+                    android:fontFamily="@font/montserratextralight"
+                    app:layout_constraintTop_toBottomOf="@id/greetingUserTime"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/todayDateAndDate"
+                    android:textSize="20sp"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/black"
+                    android:text="It's Tuesday, 25th of May."
+                    android:fontFamily="@font/montserratextralight"
+                    app:layout_constraintTop_toBottomOf="@id/greetingUserName"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+                <!--CONTINUE READING-->
+                <LinearLayout
+                    android:id="@+id/line1Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/todayDateAndDate"
+                    android:layout_marginTop="30dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
                 <View
                     android:id="@+id/line1"
                     android:background="@color/black"
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintLeft_toLeftOf="@id/continueReadingTitle"
-                    app:layout_constraintRight_toRightOf="parent"
-                />
 
+                />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/continueReadingTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/todayDateAndDate"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginStart="10dp"
+                    app:layout_constraintRight_toRightOf="parent"
                     android:layout_marginTop="20dp"
                     android:text="CONTINUE READING"
                     android:textSize="10sp"
@@ -55,9 +117,9 @@
                     android:id="@+id/continueReadingContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/line1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line1Container"
+                    app:layout_constraintStart_toStartOf="@id/greetingUserName"
+                    app:layout_constraintRight_toRightOf="@id/greetingUserName"
                     android:layout_marginTop="30dp"
                     android:clipToPadding="false"
                     >
@@ -74,24 +136,31 @@
                 </RelativeLayout>
 
                 <!--TODAY ACTIVITY-->
-
-                <View
-                    android:id="@+id/line2"
-                    android:background="@color/black"
-                    android:layout_width="350dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="50dp"
-                    app:layout_constraintLeft_toLeftOf="@id/fromYourSubsTitle"
+                <LinearLayout
+                    android:id="@+id/line2Container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/continueReadingContainer" />
-
+                    app:layout_constraintTop_toBottomOf="@id/continueReadingContainer"
+                    >
+                        <View
+                            android:id="@+id/line2"
+                            android:background="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="50dp"
+                            />
+                </LinearLayout>
                 <TextView
                     android:id="@+id/fromYourSubsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/continueReadingContainer"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginStart="10dp"
+                    app:layout_constraintRight_toRightOf="parent"
                     android:layout_marginTop="40dp"
                     android:text="FROM YOUR SUBS TODAY"
                     android:textSize="10sp"
@@ -100,13 +169,20 @@
                     android:padding="5dp"
                     android:fontFamily="@font/resothoextralight"
                 />
-
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/line2Container"
+                    >
                 <RelativeLayout
                     android:id="@+id/todayCardPreviewContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/line2"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="30dp"
                     android:clipToPadding="false"
                     >
@@ -135,7 +211,7 @@
                     android:fontFamily="@font/montserratextralight"
                     android:text="You seem cool. You know how I know? Because you checked out our app. Have a fantastic day :)"
                     />
-
+                </androidx.constraintlayout.widget.ConstraintLayout>
                 <!--Insert Logo social-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

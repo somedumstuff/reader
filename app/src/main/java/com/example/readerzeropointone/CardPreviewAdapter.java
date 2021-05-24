@@ -54,7 +54,7 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
     }
     @Override
     public void onBindViewHolder(@NonNull CardPreviewAdapter.ViewHolder holder, int position) {
-        Picasso.get().load(articleImages[position]).resize(1280, 720).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.cardPreviewArticleImage);
+        Picasso.get().load(articleImages[position]).resize(1280, 720).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).centerCrop().into(holder.cardPreviewArticleImage);
         Picasso.get().load(logos[position]).into(holder.cardPreviewSiteLogo);
         holder.cardPreviewAuthorTextView.setText(authors[position]);
         holder.cardPreviewTimeTextView.setText(times[position]);

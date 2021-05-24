@@ -48,14 +48,28 @@ public class ContinueReadingAdapter extends RecyclerView.Adapter<ContinueReading
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContinueReadingAdapter.ViewHolder holder, int position) {
-        Picasso.get().load(articleImages[position]).resize(600, 400).centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.cardPreviewArticleImage);
+    public void onBindViewHolder(@NonNull ContinueReadingAdapter.ViewHolder holder, final int position) {
+
+        Picasso.get().load(articleImages[position]).resize(600, 600).centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.cardPreviewArticleImage);
         Picasso.get().load(logos[position]).into(holder.cardPreviewSiteLogo);
         holder.cardPreviewAuthorTextView.setText(authors[position]);
         holder.cardPreviewTimeTextView.setText(times[position]);
         holder.cardPreviewSubtitle.setText(subtitles[position]);
         holder.cardPreviewHeadline.setText(headlines[position]);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ArticleActivity.class);
+                intent.putExtra("AUTHOR", authors[position]);
+                intent.putExtra("TIME", times[position]);
+                intent.putExtra("SUBTITLE", subtitles[position]);
+                intent.putExtra("HEADLINE", headlines[position]);
+                intent.putExtra("ARTICLE_IMAGE", articleImages[position]);
+                intent.putExtra("SITE_LOGO", logos[position]);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

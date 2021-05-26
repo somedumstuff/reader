@@ -5,6 +5,8 @@ import android.widget.ImageView;
 public class DaCardActivity {
 
     //time
+    final private int cardID;
+    //time
     final private String cardPreviewTimeTextView;
     //author
     final private String cardPreviewAuthorTextView;
@@ -17,10 +19,10 @@ public class DaCardActivity {
     //Subtitle
     final private String cardPreviewSubtitleTextView;
 
-
-    public DaCardActivity(String cardPreviewTimeTextView, String cardPreviewAuthorTextView,
+    public DaCardActivity(int cardID, String cardPreviewTimeTextView, String cardPreviewAuthorTextView,
                           int cardPreviewSiteLogoUrl, int cardPreviewArticleImageUrl, String cardPreviewHeadlineTextView,
                           String cardPreviewSubtitleTextView) {
+        this.cardID = cardID;
         this.cardPreviewTimeTextView = cardPreviewTimeTextView;
         this.cardPreviewAuthorTextView = cardPreviewAuthorTextView;
         this.cardPreviewSiteLogoUrl = cardPreviewSiteLogoUrl;
@@ -28,6 +30,12 @@ public class DaCardActivity {
         this.cardPreviewHeadlineTextView = cardPreviewHeadlineTextView;
         this.cardPreviewSubtitleTextView = cardPreviewSubtitleTextView;
     }
+
+    public int getCardID() {
+        return cardID;
+    }
+
+
 
     public String getCardPreviewTimeTextView() {
         return cardPreviewTimeTextView;

@@ -14,36 +14,34 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter.ViewHolder> {
 
     //local vars
-    String[] headlines;
-    String[] subtitles;
-    int[] articleImages;
-    int[] logos;
-    String[] authors;
-    String[] times;
+    String headline;
+    String subtitle;
+    int articleImage;
+    int logo;
+    String author;
+    String time;
     Context context;
     Bitmap bitmap;
+    ArrayList<DaCardActivity> localArrayList;
 
-    public CardPreviewAdapter(Context ct, String[] headlines, String[] subtitles, String[] authors, String[] times
-    , int[] articleImages, int[] logos){
+
+    public CardPreviewAdapter(Context ct, ArrayList arrayList){
         context = ct;
-        this.headlines = headlines;
-        this.subtitles = subtitles;
-        this.authors = authors;
-        this.times = times;
-        this.articleImages = articleImages;
-        this.logos = logos;
+        localArrayList = arrayList;
     }
-
 
     @NonNull
     @Override
@@ -54,17 +52,24 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
     }
     @Override
     public void onBindViewHolder(@NonNull CardPreviewAdapter.ViewHolder holder, int position) {
-        Picasso.get().load(articleImages[position]).resize(1280, 720).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).centerCrop().into(holder.cardPreviewArticleImage);
-        Picasso.get().load(logos[position]).into(holder.cardPreviewSiteLogo);
-        holder.cardPreviewAuthorTextView.setText(authors[position]);
-        holder.cardPreviewTimeTextView.setText(times[position]);
-        holder.cardPreviewSubtitle.setText(subtitles[position]);
-        holder.cardPreviewHeadline.setText(headlines[position]);
+        DaCardActivity daCardActivity = (DaCardActivity) localArrayList.get(position);
+        headline = daCardActivity.getCardPreviewHeadlineTextView();
+        subtitle = daCardActivity.getCardPreviewSubtitleTextView();
+        articleImage = daCardActivity.getCardPreviewArticleImageUrl();
+        logo = daCardActivity.getCardPreviewSiteLogoUrl();
+        author = daCardActivity.getCardPreviewAuthorTextView();
+        time = daCardActivity.getCardPreviewTimeTextView();
+        Picasso.get().load(articleImage).resize(1280, 720).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.cardPreviewArticleImage);
+        Picasso.get().load(logo).into(holder.cardPreviewSiteLogo);
+        holder.cardPreviewAuthorTextView.setText(author);
+        holder.cardPreviewTimeTextView.setText(time);
+        holder.cardPreviewSubtitle.setText(subtitle);
+        holder.cardPreviewHeadline.setText(headline);
     }
 
     @Override
     public int getItemCount() {
-        return articleImages.length;
+        return localArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -85,4 +90,7 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
             cardPreviewHeadline = itemView.findViewById(R.id.cardPreviewHeadlineTextView);
         }
     }
+
+
+
 }

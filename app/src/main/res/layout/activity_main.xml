@@ -15,25 +15,22 @@
             android:id="@+id/scrollViewActivityMain"
             >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-            >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/greetingUserGood"
-                    android:textSize="90sp"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    android:text="Good"
-                    android:letterSpacing="-0.05"
-                    android:fontFamily="@font/montserratextralight"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/greetingUserGood"
+                android:textSize="90sp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:text="Good"
+                android:letterSpacing="-0.05"
+                android:fontFamily="@font/montserratextralight"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -62,7 +59,6 @@
                     app:layout_constraintTop_toBottomOf="@id/greetingUserTime"
                     app:layout_constraintLeft_toLeftOf="parent"
                     />
-
 
                 <TextView
                     android:layout_marginTop="15dp"
@@ -97,6 +93,7 @@
 
                 />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/continueReadingTitle"
                     android:layout_width="wrap_content"
@@ -154,6 +151,7 @@
                             android:layout_marginTop="50dp"
                             />
                 </LinearLayout>
+
                 <TextView
                     android:id="@+id/fromYourSubsTitle"
                     android:layout_width="wrap_content"
@@ -169,18 +167,13 @@
                     android:padding="5dp"
                     android:fontFamily="@font/resothoextralight"
                 />
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/line2Container"
-                    >
+
+
                 <RelativeLayout
                     android:id="@+id/todayCardPreviewContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fromYourSubsTitle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="30dp"
@@ -200,22 +193,22 @@
 
                 <!--FOOTER-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/todayCardPreviewContainer"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:textAlignment="center"
-                    android:padding="50dp"
-                    android:fontFamily="@font/montserratextralight"
-                    android:text="You seem cool. You know how I know? Because you checked out our app. Have a fantastic day :)"
-                    />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/todayCardPreviewContainer"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textAlignment="center"
+                android:padding="50dp"
+                android:fontFamily="@font/montserratextralight"
+                android:text="You seem cool. You know how I know? Because you checked out our app. Have a fantastic day :)"
+                />
+
                 <!--Insert Logo social-->
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout

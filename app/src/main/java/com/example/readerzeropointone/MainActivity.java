@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.AnimatorInflater;
@@ -55,6 +56,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,6 +83,28 @@ public class MainActivity extends AppCompatActivity {
         parentActivityMain = findViewById(R.id.parentActivityMain);
 //      scrollViewActivityMain = findViewById(R.id.scrollViewActivityMain);
         buttonContainerActivityMain = findViewById(R.id.buttonContainer);
+
+        ArrayList<DaCardActivity> arraylist = new ArrayList<DaCardActivity>();
+
+        arraylist.add(new DaCardActivity(1,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder1, R.drawable.placeholder1,
+                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+
+        arraylist.add(new DaCardActivity(2,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder2, R.drawable.placeholder2,
+                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+
+        arraylist.add(new DaCardActivity(3,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder3, R.drawable.placeholder3,
+                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+
+        arraylist.add(new DaCardActivity(4,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder4, R.drawable.placeholder4,
+                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+
+        arraylist.add(new DaCardActivity(5,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder5, R.drawable.placeholder5,
+                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
 
         logosPlaceHolder = new int[]{
                 R.drawable.iconplaceholder1,
@@ -138,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         //getting strings
         headlinesPlaceHolder = getResources().getStringArray(R.array.testHeadlines);
         subtitlePlaceHolder = getResources().getStringArray(R.array.testSubtitles);
@@ -153,18 +178,24 @@ public class MainActivity extends AppCompatActivity {
         previewRecyclerView.setItemViewCacheSize(20);
         previewRecyclerView.setDrawingCacheEnabled(true);
         previewRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        CardPreviewAdapter cardPreviewAdapter = new CardPreviewAdapter(this, headlinesPlaceHolder, subtitlePlaceHolder, authorPlaceHolder, timePlaceHolder, articleImagePreviewPlaceHolder, logosPlaceHolder);
+        previewRecyclerView.setNestedScrollingEnabled(false);
+        CardPreviewAdapter cardPreviewAdapter = new CardPreviewAdapter(this, arraylist);
+        cardPreviewAdapter.setHasStableIds(true);
+        cardPreviewAdapter.notifyDataSetChanged();
         previewRecyclerView.setAdapter(cardPreviewAdapter);
-        previewRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+        previewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
 
         //recycler view continue reading
         continueReadingRecyclerView = findViewById(R.id.continueReadingCardPreviewRecycler);
         continueReadingRecyclerView.setItemViewCacheSize(20);
         continueReadingRecyclerView.setDrawingCacheEnabled(true);
         continueReadingRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        continueReadingRecyclerView.setNestedScrollingEnabled(false);
         ContinueReadingAdapter continueReadingAdapter = new ContinueReadingAdapter(this, continueReadingHeadlines, continueReadingSubtitles, continueReadingAuthorPlaceHolder, continueReadingTimePlaceHolder, continueReadingArticleImagePreviewPlaceHolder, logosPlaceHolder);
-        continueReadingRecyclerView.setAdapter(continueReadingAdapter);
         continueReadingRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        continueReadingRecyclerView.setAdapter(continueReadingAdapter);
+
     }
 
 }

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yourSubsTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Your Subs"
+        android:layout_marginStart="10dp"
+        android:paddingStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:letterSpacing="-0.05"
+        android:textSize="70sp"
+        android:fontFamily="@font/montserratextralight"
+      />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/yourSubsTitle"
+        app:layout_constraintTop_toBottomOf="@+id/yourSubsTitle"
+
+        >
+    <androidx.recyclerview.widget.RecyclerView
+        android:clipToPadding="false"
+        android:id="@+id/yourSubsRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+
+        />
+    </ScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/buttonContainer"
+        >
+
+        <ImageView
+            android:id="@+id/blowUpView"
+            android:background="@drawable/circle_for_transition"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            />
+
+        <ImageButton
+            android:id="@+id/mainMenuButton"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/circle_black"
+            android:src="@drawable/new_burgle_menu_icon"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:elevation="6dp"
+            />
+
+        <Button
+            android:id="@+id/todayButton"
+            app:layout_constraintEnd_toEndOf="@id/mainMenuButton"
+            app:layout_constraintStart_toStartOf="@id/mainMenuButton"
+            android:text="19th MAY"
+            android:padding="5dp"
+            android:fontFamily="@font/resothoextralight"
+            android:background="@drawable/circle_black"
+            android:textColor="#FFF"
+            android:layout_marginBottom="15dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/mainMenuButton"
+            />
+
+        <Button
+            android:id="@+id/savedButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:fontFamily="@font/resothoextralight"
+            android:background="@drawable/save_activty_closed"
+            app:layout_constraintStart_toStartOf="@id/todayButton"
+            app:layout_constraintEnd_toEndOf="@id/todayButton"
+            app:layout_constraintBottom_toTopOf="@id/todayButton"
+            android:layout_marginBottom="15dp"
+            android:elevation="10dp"
+            />
+
+        <Button
+            android:elevation="10dp"
+            android:id="@+id/yourSubscriptions"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/subs_activity_closed"
+            app:layout_constraintBottom_toTopOf="@id/savedButton"
+            app:layout_constraintEnd_toEndOf="@+id/savedButton"
+            app:layout_constraintStart_toStartOf="@id/savedButton" />
+
+        <Button
+            android:elevation="10dp"
+            android:id="@+id/addANewSub"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@id/yourSubscriptions"
+            app:layout_constraintBottom_toTopOf="@id/yourSubscriptions"
+            app:layout_constraintEnd_toEndOf="@id/yourSubscriptions"
+            android:background="@drawable/add_activity_closed"
+            android:layout_marginBottom="15dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

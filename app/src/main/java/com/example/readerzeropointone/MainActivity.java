@@ -192,6 +192,21 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     });
+
+                    addNewSubButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            obj.closeMenuItems(yepBlow, todayButton, savedButton, subsButton, addNewSubButton);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent openYourSubs = new Intent(MainActivity.this, AddSubActivity.class);
+                                    startActivity(openYourSubs);
+                                }
+                            }, 800);
+                        }
+                    });
+
                 }
                 else{
                     menuOpen = obj.closMenu(mainMenuButton);

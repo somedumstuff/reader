@@ -65,7 +65,7 @@ public class AnimationHandler {
         FastOutSlowInInterpolator bounceInterpolator = new FastOutSlowInInterpolator();
         ObjectAnimator blowUpX = ObjectAnimator.ofFloat(yepBlow, "scaleX", 0, 40);
         ObjectAnimator blowUpY = ObjectAnimator.ofFloat(yepBlow, "scaleY", 0, 40);
-        ObjectAnimator opacity = ObjectAnimator.ofFloat(yepBlow, "alpha", 0.9f);
+        ObjectAnimator opacity = ObjectAnimator.ofFloat(yepBlow, "alpha", 1f);
         AnimatorSet blowItUp = new AnimatorSet();
         blowItUp.playTogether(blowUpX, blowUpY, opacity);
         blowItUp.setInterpolator(bounceInterpolator);

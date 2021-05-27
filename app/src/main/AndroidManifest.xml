@@ -27,6 +27,10 @@
             android:theme="@style/AppTheme">
 
         </activity>
+        <activity android:name=".AddSubActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
     </application>
 
 </manifest>

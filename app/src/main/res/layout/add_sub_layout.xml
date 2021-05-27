@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/addASiteTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineHeight="140dp"
+        android:padding="20dp"
+        android:text="Add a site"
+        android:fontFamily="@font/montserratextralight"
+        android:textSize="140sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addSubEditTextContainer"
+        app:layout_constraintTop_toBottomOf="@id/addASiteTitleTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/addSubEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:textSize="16sp"
+            android:inputType="textUri"
+            android:hint="Enter a RSS link, or a category, or a site's name."
+            android:fontFamily="@font/montserratextralight"
+        />
+        <Button
+            android:layout_below="@id/addSubEditText"
+            android:id="@+id/addThisSite"
+            app:layout_constraintTop_toBottomOf="@id/addSubEditText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:foregroundGravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/background_black_for_button"
+            android:textColor="#FFF"
+            android:text="Add this site!"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserratregular"
+            android:textAllCaps="false"
+            android:layout_marginTop="30dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TODO Add category tags. Need a generator of some sort-->
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/buttonContainer"
+        >
+
+        <ImageView
+            android:id="@+id/blowUpView"
+            android:background="@drawable/circle_for_transition"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            />
+
+        <ImageButton
+            android:id="@+id/mainMenuButton"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/circle_black"
+            android:src="@drawable/new_burgle_menu_icon"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:elevation="6dp"
+            />
+
+        <Button
+            android:id="@+id/todayButton"
+            app:layout_constraintEnd_toEndOf="@id/mainMenuButton"
+            app:layout_constraintStart_toStartOf="@id/mainMenuButton"
+            android:text="19th MAY"
+            android:padding="5dp"
+            android:fontFamily="@font/resothoextralight"
+            android:background="@drawable/circle_black"
+            android:textColor="#FFF"
+            android:layout_marginBottom="15dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/mainMenuButton"
+            />
+
+        <Button
+            android:id="@+id/savedButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:fontFamily="@font/resothoextralight"
+            android:background="@drawable/save_activty_closed"
+            app:layout_constraintStart_toStartOf="@id/todayButton"
+            app:layout_constraintEnd_toEndOf="@id/todayButton"
+            app:layout_constraintBottom_toTopOf="@id/todayButton"
+            android:layout_marginBottom="15dp"
+            android:elevation="10dp"
+            />
+
+        <Button
+            android:elevation="10dp"
+            android:id="@+id/yourSubscriptions"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/subs_activity_closed"
+            app:layout_constraintBottom_toTopOf="@id/savedButton"
+            app:layout_constraintEnd_toEndOf="@+id/savedButton"
+            app:layout_constraintStart_toStartOf="@id/savedButton" />
+
+        <Button
+            android:elevation="10dp"
+            android:id="@+id/addANewSub"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@id/yourSubscriptions"
+            app:layout_constraintBottom_toTopOf="@id/yourSubscriptions"
+            app:layout_constraintEnd_toEndOf="@id/yourSubscriptions"
+            android:background="@drawable/add_activity_closed"
+            android:layout_marginBottom="15dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

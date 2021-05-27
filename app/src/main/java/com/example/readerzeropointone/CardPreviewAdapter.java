@@ -1,6 +1,7 @@
 package com.example.readerzeropointone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,7 +52,7 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
         return new ViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull CardPreviewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CardPreviewAdapter.ViewHolder holder, int position) {
         DaCardActivity daCardActivity = (DaCardActivity) localArrayList.get(position);
         headline = daCardActivity.getCardPreviewHeadlineTextView();
         subtitle = daCardActivity.getCardPreviewSubtitleTextView();
@@ -59,17 +60,45 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
         logo = daCardActivity.getCardPreviewSiteLogoUrl();
         author = daCardActivity.getCardPreviewAuthorTextView();
         time = daCardActivity.getCardPreviewTimeTextView();
-        Picasso.get().load(articleImage).resize(1280, 720).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.cardPreviewArticleImage);
+
+        Picasso.get().load(articleImage).resize(1280, 720).centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.cardPreviewArticleImage);
         Picasso.get().load(logo).into(holder.cardPreviewSiteLogo);
         holder.cardPreviewAuthorTextView.setText(author);
         holder.cardPreviewTimeTextView.setText(time);
         holder.cardPreviewSubtitle.setText(subtitle);
         holder.cardPreviewHeadline.setText(headline);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = holder.getAbsoluteAdapterPosition();
+                DaCardActivity daCardActivity = (DaCardActivity) localArrayList.get(pos);
+                Context context = holder.itemView.getContext();
+                Intent intent = new Intent(context, ArticleActivity.class);
+                intent.putExtra("AUTHOR", daCardActivity.getCardPreviewAuthorTextView());
+                intent.putExtra("TIME", daCardActivity.getCardPreviewTimeTextView());
+                intent.putExtra("SUBTITLE", daCardActivity.getCardPreviewSubtitleTextView());
+                intent.putExtra("HEADLINE", daCardActivity.getCardPreviewHeadlineTextView());
+                intent.putExtra("ARTICLE_IMAGE", daCardActivity.getCardPreviewArticleImageUrl());
+                intent.putExtra("SITE_LOGO", daCardActivity.getCardPreviewSiteLogoUrl());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return localArrayList.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

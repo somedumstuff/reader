@@ -18,7 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ArticleActivity">
+        <activity android:name=".ArticleActivity"
+            android:theme="@style/AppTheme"
+            >
+
+        </activity>
+        <activity android:name=".YourSubsActivity"
+            android:theme="@style/AppTheme">
 
         </activity>
     </application>

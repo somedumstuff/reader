@@ -33,6 +33,8 @@ public class ArticleActivity extends AppCompatActivity {
         setContentView(R.layout.article_view);
 
         Intent intent = getIntent();
+
+
         String headlineReceived = intent.getStringExtra("HEADLINE");
         String subTitleReceived = intent.getStringExtra("SUBTITLE");
         String authorReceived = intent.getStringExtra("AUTHOR");
@@ -49,14 +51,13 @@ public class ArticleActivity extends AppCompatActivity {
         TextView articleTimeTextView = findViewById(R.id.articleTimeTextView);
 
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.view_fade_in);
-
         articleAuthorTextView.setText(authorReceived);
         articleHeadlineTextView.setText(headlineReceived);
         articleSubtitleTextView.setText(subTitleReceived);
         articleTimeTextView.setText(timeReceived);
 
         Picasso.get().load(logoImage).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(articleSiteLogo);
-        Picasso.get().load(articleImage).resize(1280, 720).memoryPolicy(MemoryPolicy.NO_STORE).into(articleImageView);
+        Picasso.get().load(articleImage).resize(1280, 720).centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(articleImageView);
 
     }
 

@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView yepBlow;
     View parentActivityMain, buttonContainerActivityMain;
     RenderScript renderScript;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
         buttonContainerActivityMain = findViewById(R.id.buttonContainer);
 
         ArrayList<DaCardActivity> arraylist = new ArrayList<DaCardActivity>();
+        ArrayList<DaCardActivity> continueReadingList = new ArrayList<>();
 
+        //today list
         arraylist.add(new DaCardActivity(1,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder1, R.drawable.placeholder1,
                 "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
                 , "Climate change is very real. Do not believe what your grandma says from Facebook."));
@@ -105,6 +108,30 @@ public class MainActivity extends AppCompatActivity {
         arraylist.add(new DaCardActivity(5,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder5, R.drawable.placeholder5,
                 "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
                 , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+
+
+
+        //continue reading list
+        continueReadingList.add(new DaCardActivity(1,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder5, R.drawable.placeholer1,
+                "Heres the headline: Why do you think this card will have some happy news? lol"
+                , "Yeah, go back and sleep i guess."));
+
+        continueReadingList.add(new DaCardActivity(2,"12:30 | Monday", "Yoer Modher", R.drawable.iconplaceholder5, R.drawable.placeholer2,
+                "Nothing new, everything is going down the shitter."
+                , "And the shitter is clogged and overflowing."));
+
+        continueReadingList.add(new DaCardActivity(3,"03:30 | Monday", "Pipo Dab", R.drawable.iconplaceholder5, R.drawable.placeholer3,
+                "LOL BITCOIN DOWN BAD. ETH LOSES 50% OF ITS VALUE!"
+                , "TO THE MOOOOOOON!"));
+
+        continueReadingList.add(new DaCardActivity(4,"01:30 | Monday", "Doggo inc.", R.drawable.iconplaceholder5, R.drawable.placeholer4,
+                "Doggos are dope. They are good frendos. Me like doggos."
+                , "Doggo cute widepeepoHappy"));
+
+        continueReadingList.add(new DaCardActivity(5,"11:00 | Monday", "monkaW", R.drawable.iconplaceholder5, R.drawable.placeholer5,
+                "HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAH"
+                , "AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"));
+
 
         logosPlaceHolder = new int[]{
                 R.drawable.iconplaceholder1,
@@ -145,18 +172,30 @@ public class MainActivity extends AppCompatActivity {
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnimationHandler obj = new AnimationHandler();
+                final AnimationHandler obj = new AnimationHandler();
                 if(!menuOpen){
                     menuOpen = obj.openMenu(mainMenuButton);
-                    Toast.makeText(MainActivity.this, String.valueOf(menuOpen), Toast.LENGTH_SHORT).show();
-                    //click(mainMenuButton);
                     obj.clickAnim(mainMenuButton);
                     obj.showMenuItems(yepBlow, todayButton, savedButton, subsButton, addNewSubButton);
+                    subsButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //TODO need to do anim polishing | add a new fun with click and close | need to add transitions | later
+                            obj.closeMenuItems(yepBlow, todayButton, savedButton, subsButton, addNewSubButton);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent openYourSubs = new Intent(MainActivity.this, YourSubsActivity.class);
+                                    startActivity(openYourSubs);
+                                }
+                            }, 800);
+
+                        }
+                    });
                 }
                 else{
                     menuOpen = obj.closMenu(mainMenuButton);
                     obj.clickAnim(mainMenuButton);
-                    Toast.makeText(MainActivity.this, String.valueOf(menuOpen), Toast.LENGTH_SHORT).show();
                     obj.closeMenuItems(yepBlow, todayButton, savedButton, subsButton, addNewSubButton);
                 }
             }
@@ -173,29 +212,20 @@ public class MainActivity extends AppCompatActivity {
         continueReadingTimePlaceHolder = getResources().getStringArray(R.array.continueReadingTimePlaceHolders);
         continueReadingHeadlines = getResources().getStringArray(R.array.continueReadingHeadlinesPlaceholder);
 
-        //recycler view today preview
-        previewRecyclerView = findViewById(R.id.todayCardPreviewRecycler);
-        previewRecyclerView.setItemViewCacheSize(20);
-        previewRecyclerView.setDrawingCacheEnabled(true);
-        previewRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        previewRecyclerView.setNestedScrollingEnabled(false);
-        CardPreviewAdapter cardPreviewAdapter = new CardPreviewAdapter(this, arraylist);
-        cardPreviewAdapter.setHasStableIds(true);
-        cardPreviewAdapter.notifyDataSetChanged();
-        previewRecyclerView.setAdapter(cardPreviewAdapter);
-        previewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
 
         //recycler view continue reading
         continueReadingRecyclerView = findViewById(R.id.continueReadingCardPreviewRecycler);
-        continueReadingRecyclerView.setItemViewCacheSize(20);
-        continueReadingRecyclerView.setDrawingCacheEnabled(true);
-        continueReadingRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-        continueReadingRecyclerView.setNestedScrollingEnabled(false);
-        ContinueReadingAdapter continueReadingAdapter = new ContinueReadingAdapter(this, continueReadingHeadlines, continueReadingSubtitles, continueReadingAuthorPlaceHolder, continueReadingTimePlaceHolder, continueReadingArticleImagePreviewPlaceHolder, logosPlaceHolder);
+        ContinueReadingAdapter continueReadingAdapter = new ContinueReadingAdapter(this, continueReadingList);
+        continueReadingAdapter.setHasStableIds(true);
         continueReadingRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         continueReadingRecyclerView.setAdapter(continueReadingAdapter);
 
+        //recycler view today preview
+        previewRecyclerView = findViewById(R.id.todayCardPreviewRecycler);
+        CardPreviewAdapter cardPreviewAdapter = new CardPreviewAdapter(this, arraylist);
+        cardPreviewAdapter.setHasStableIds(true);
+        previewRecyclerView.setAdapter(cardPreviewAdapter);
+        previewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
 }

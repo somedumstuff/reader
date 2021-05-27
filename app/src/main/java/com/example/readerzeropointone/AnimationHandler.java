@@ -27,6 +27,16 @@ public class AnimationHandler {
         animatorSet.start();
     }
 
+    public void clickAnim(Button button){
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 0.9f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 0.9f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.setDuration(500);
+        animatorSet.start();
+    }
+
+
     public boolean openMenu(ImageButton mainMenuButton){
         ObjectAnimator rotateIn = ObjectAnimator.ofFloat(mainMenuButton, "rotation", 360f);
         AnimatorSet animatorSet = new AnimatorSet();

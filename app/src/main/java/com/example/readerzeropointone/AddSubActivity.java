@@ -3,6 +3,7 @@ package com.example.readerzeropointone;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.realm.Realm;
+
 public class AddSubActivity extends AppCompatActivity {
     boolean menuOpen = false;
     Button todayButton, savedButton, subsButton, addNewSubButton, addThisLinkButton;
@@ -20,11 +23,17 @@ public class AddSubActivity extends AppCompatActivity {
     ImageView yepBlow;
     EditText queryEntry;
 
+    private Realm realm;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_sub_layout);
+
+        // backend
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
 
         //init
         mainMenuButton = findViewById(R.id.mainMenuButton);
@@ -79,7 +88,24 @@ public class AddSubActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //todo yo add link backend
-                Toast.makeText(AddSubActivity.this, "Added so it doesnt crash", Toast.LENGTH_SHORT).show();
+
+                boolean validLink = true;
+                String link = queryEntry.getText().toString();
+
+                // add code to check if link is valid rss link or not
+                // change validLink to false if its not valid
+
+                if(validLink) {
+                    LinkDBHelper helper = new LinkDBHelper(realm);
+                    helper.addNewLinkDB(link);
+                    Log.v("DB", link + " Added.");
+                    queryEntry.setText("");
+                }
+                else {
+                    //user has not entered a rss link
+                    Log.v("DB", link + " is not a valid link!");
+                }
+                Toast.makeText(AddSubActivity.this, "Added so it doesn't crash", Toast.LENGTH_SHORT).show();
             }
         });
 

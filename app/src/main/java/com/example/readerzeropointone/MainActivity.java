@@ -56,8 +56,12 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,11 +79,17 @@ public class MainActivity extends AppCompatActivity {
     ImageView yepBlow;
     View parentActivityMain, buttonContainerActivityMain;
     RenderScript renderScript;
+    private Realm realm;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //pre-populating linksDB
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
+        fillUpDatabase();
 
         parentActivityMain = findViewById(R.id.parentActivityMain);
 //      scrollViewActivityMain = findViewById(R.id.scrollViewActivityMain);
@@ -241,6 +251,22 @@ public class MainActivity extends AppCompatActivity {
         cardPreviewAdapter.setHasStableIds(true);
         previewRecyclerView.setAdapter(cardPreviewAdapter);
         previewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    }
+
+    private void fillUpDatabase() {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                InputStream inputStream = getResources().openRawResource(R.raw.links);
+                try {
+                    realm.createAllFromJson(LinkDB.class, inputStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    if(realm.isInTransaction())
+                        realm.cancelTransaction();
+                }
+            }
+        });
     }
 
 }

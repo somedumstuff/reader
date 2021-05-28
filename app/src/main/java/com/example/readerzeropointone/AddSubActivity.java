@@ -14,6 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import io.realm.Realm;
 
 public class AddSubActivity extends AppCompatActivity {
@@ -42,7 +46,7 @@ public class AddSubActivity extends AppCompatActivity {
         subsButton = findViewById(R.id.yourSubscriptions);
         addNewSubButton = findViewById(R.id.addANewSub);
         yepBlow = findViewById(R.id.blowUpView);
-        queryEntry = findViewById(R.id.addSubEditText);
+        queryEntry = findViewById(R.id.addSubEditText); //
         addThisLinkButton = findViewById(R.id.addThisSite);
 
         //anim default
@@ -94,21 +98,45 @@ public class AddSubActivity extends AppCompatActivity {
 
                 // add code to check if link is valid rss link or not
                 // change validLink to false if its not valid
+                validLink = validateLink(link);
 
                 if(validLink) {
+                    //TODO : check for duplicates
+
                     LinkDBHelper helper = new LinkDBHelper(realm);
                     helper.addNewLinkDB(link);
                     Log.v("DB", link + " Added.");
                     queryEntry.setText("");
+                    toast("Added to DB");
                 }
                 else {
                     //user has not entered a rss link
+                    toast("Invalid Link");
                     Log.v("DB", link + " is not a valid link!");
                 }
-                Toast.makeText(AddSubActivity.this, "Added so it doesn't crash", Toast.LENGTH_SHORT).show();
             }
         });
 
 
+    }
+
+    private synchronized Boolean validateLink(String link) {
+
+        Boolean result = false;
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Future<Boolean> futureCall = executor.submit(new ConnectionCallable(link));
+
+        try {
+            result = futureCall.get();
+        } catch (Exception e) {
+            System.out.println("################ ERROR !!! #####################");
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    private void toast(String str) {
+        Toast.makeText(AddSubActivity.this, str, Toast.LENGTH_SHORT).show();
     }
 }

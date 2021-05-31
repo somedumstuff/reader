@@ -3,16 +3,7 @@
     "rssLink": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
   },
   {
-    "rssLink": "https://www.huffpost.com/section/front-page/feed?x=1"
-  },
-  {
-    "rssLink": "https://lifehacker.com/rss"
-  },
-  {
     "rssLink": "https://www.politico.com/rss/politicopicks.xml"
-  },
-  {
-    "rssLink": "https://www.yahoo.com/news/rss"
   },
   {
     "rssLink": "https://www.latimes.com/local/rss2.0.xml"

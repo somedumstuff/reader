@@ -1,6 +1,11 @@
 package com.example.readerzeropointone;
 
-import android.widget.ImageView;
+import android.icu.text.SimpleDateFormat;
+
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.Date;
 
 public class DaCardActivity {
 
@@ -11,31 +16,40 @@ public class DaCardActivity {
     //author
     final private String cardPreviewAuthorTextView;
     //site logo
-    final private int cardPreviewSiteLogoUrl;
+    final private String cardPreviewSiteLogoUrl;
     //article image
-    final private int cardPreviewArticleImageUrl;
+    final private String cardPreviewArticleImageUrl;
     //Headline
     final private String cardPreviewHeadlineTextView;
     //Subtitle
     final private String cardPreviewSubtitleTextView;
+    //link
+    final private String cardPreviewLink;
 
-    public DaCardActivity(int cardID, String cardPreviewTimeTextView, String cardPreviewAuthorTextView,
-                          int cardPreviewSiteLogoUrl, int cardPreviewArticleImageUrl, String cardPreviewHeadlineTextView,
-                          String cardPreviewSubtitleTextView) {
+    //time for sorting
+    final private Date cardPreviewDate;
+
+    public DaCardActivity(int cardID, Date cardPreviewDate, String cardPreviewTimeTextView, String cardPreviewAuthorTextView,
+                          String cardPreviewSiteLogoUrl, String cardPreviewArticleImageUrl, String cardPreviewHeadlineTextView,
+                          String cardPreviewSubtitleTextView, String cardPreviewLink) {
         this.cardID = cardID;
+        this.cardPreviewDate = cardPreviewDate != null? cardPreviewDate: new Date();
         this.cardPreviewTimeTextView = cardPreviewTimeTextView;
         this.cardPreviewAuthorTextView = cardPreviewAuthorTextView;
-        this.cardPreviewSiteLogoUrl = cardPreviewSiteLogoUrl;
-        this.cardPreviewArticleImageUrl = cardPreviewArticleImageUrl;
+        this.cardPreviewSiteLogoUrl = cardPreviewSiteLogoUrl != null? cardPreviewSiteLogoUrl: "https://source.android.com/setup/images/Android_symbol_green_RGB.png";
+        this.cardPreviewArticleImageUrl = cardPreviewArticleImageUrl != null? cardPreviewArticleImageUrl: "https://www.wallpapertip.com/wmimgs/64-649248_background-for-clean.jpg";
         this.cardPreviewHeadlineTextView = cardPreviewHeadlineTextView;
         this.cardPreviewSubtitleTextView = cardPreviewSubtitleTextView;
+        this.cardPreviewLink = cardPreviewLink;
     }
 
     public int getCardID() {
         return cardID;
     }
 
-
+    public Date getCardPreviewDate() {
+        return cardPreviewDate;
+    }
 
     public String getCardPreviewTimeTextView() {
         return cardPreviewTimeTextView;
@@ -45,11 +59,11 @@ public class DaCardActivity {
         return cardPreviewAuthorTextView;
     }
 
-    public int getCardPreviewSiteLogoUrl() {
+    public String getCardPreviewSiteLogoUrl() {
         return cardPreviewSiteLogoUrl;
     }
 
-    public int getCardPreviewArticleImageUrl() {
+    public String getCardPreviewArticleImageUrl() {
         return cardPreviewArticleImageUrl;
     }
 
@@ -60,4 +74,9 @@ public class DaCardActivity {
     public String getCardPreviewSubtitleTextView() {
         return cardPreviewSubtitleTextView;
     }
+
+    public String getCardPreviewLink() {
+        return cardPreviewLink;
+    }
+
 }

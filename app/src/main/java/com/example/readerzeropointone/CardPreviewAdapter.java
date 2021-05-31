@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,8 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
     //local vars
     String headline;
     String subtitle;
-    int articleImage;
-    int logo;
+    String articleImage;
+    String logo;
     String author;
     String time;
     Context context;
@@ -66,22 +67,29 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
         holder.cardPreviewAuthorTextView.setText(author);
         holder.cardPreviewTimeTextView.setText(time);
         holder.cardPreviewSubtitle.setText(subtitle);
+        if(subtitle == null || subtitle.equals(""))
+            holder.cardPreviewSubtitle.setVisibility(View.INVISIBLE);
         holder.cardPreviewHeadline.setText(headline);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos = holder.getAbsoluteAdapterPosition();
-                DaCardActivity daCardActivity = (DaCardActivity) localArrayList.get(pos);
-                Context context = holder.itemView.getContext();
-                Intent intent = new Intent(context, ArticleActivity.class);
-                intent.putExtra("AUTHOR", daCardActivity.getCardPreviewAuthorTextView());
-                intent.putExtra("TIME", daCardActivity.getCardPreviewTimeTextView());
-                intent.putExtra("SUBTITLE", daCardActivity.getCardPreviewSubtitleTextView());
-                intent.putExtra("HEADLINE", daCardActivity.getCardPreviewHeadlineTextView());
-                intent.putExtra("ARTICLE_IMAGE", daCardActivity.getCardPreviewArticleImageUrl());
-                intent.putExtra("SITE_LOGO", daCardActivity.getCardPreviewSiteLogoUrl());
+
+                Uri uri = Uri.parse(daCardActivity.getCardPreviewLink());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 context.startActivity(intent);
+
+//                int pos = holder.getAbsoluteAdapterPosition();
+//                DaCardActivity daCardActivity = (DaCardActivity) localArrayList.get(pos);
+//                Context context = holder.itemView.getContext();
+//                Intent intent = new Intent(context, ArticleActivity.class);
+//                intent.putExtra("AUTHOR", daCardActivity.getCardPreviewAuthorTextView());
+//                intent.putExtra("TIME", daCardActivity.getCardPreviewTimeTextView());
+//                intent.putExtra("SUBTITLE", daCardActivity.getCardPreviewSubtitleTextView());
+//                intent.putExtra("HEADLINE", daCardActivity.getCardPreviewHeadlineTextView());
+//                intent.putExtra("ARTICLE_IMAGE", daCardActivity.getCardPreviewArticleImageUrl());
+//                intent.putExtra("SITE_LOGO", daCardActivity.getCardPreviewSiteLogoUrl());
+//                context.startActivity(intent);
             }
         });
     }

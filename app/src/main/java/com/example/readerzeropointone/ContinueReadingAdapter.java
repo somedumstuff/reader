@@ -24,8 +24,8 @@ public class ContinueReadingAdapter extends RecyclerView.Adapter<ContinueReading
     //local vars
     String headline;
     String subtitle;
-    int articleImage;
-    int logo;
+    String articleImage;
+    String logo;
     String author;
     String time;
     Context context;
@@ -63,7 +63,6 @@ public class ContinueReadingAdapter extends RecyclerView.Adapter<ContinueReading
         logo = daCardActivity.getCardPreviewSiteLogoUrl();
         author = daCardActivity.getCardPreviewAuthorTextView();
         time = daCardActivity.getCardPreviewTimeTextView();
-
 
         Picasso.get().load(articleImage).resize(1280, 720).centerCrop().memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(holder.cardPreviewArticleImage);
         Picasso.get().load(logo).into(holder.cardPreviewSiteLogo);

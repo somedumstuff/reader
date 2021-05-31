@@ -1,71 +1,38 @@
 package com.example.readerzeropointone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.ViewCompat;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
-import android.animation.FloatArrayEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
-import android.animation.TimeInterpolator;
-import android.animation.ValueAnimator;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Interpolator;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
 import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.util.DisplayMetrics;
-import android.util.Pair;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.AnticipateInterpolator;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.PathInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean menuOpen = false;
+    ExecutorService executorService = Executors.newFixedThreadPool(3);
     String[] headlinesPlaceHolder, continueReadingHeadlines;
     String[] subtitlePlaceHolder, continueReadingSubtitles;
     int[] logosPlaceHolder, getContinueReadingArticleLogoPreviewPlaceHolder;
@@ -80,16 +47,26 @@ public class MainActivity extends AppCompatActivity {
     View parentActivityMain, buttonContainerActivityMain;
     RenderScript renderScript;
     private Realm realm;
+    ArrayList<DaCardActivity> articlesList = new ArrayList<DaCardActivity>();
+    ArrayList<DaCardActivity> tempList = new ArrayList<DaCardActivity>();
+    int count = 1; //for cardID in articlesList
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //pre-populating linksDB
+        //pre-populating linksDB and cardDB
         Realm.init(this);
+        RealmConfiguration realmConfiguration = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
         realm = Realm.getDefaultInstance();
         fillUpDatabase();
+        //fetching articles from rss links
+        getFeeds();
 
         parentActivityMain = findViewById(R.id.parentActivityMain);
 //      scrollViewActivityMain = findViewById(R.id.scrollViewActivityMain);
@@ -99,71 +76,72 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<DaCardActivity> continueReadingList = new ArrayList<>();
 
         //today list
-        arraylist.add(new DaCardActivity(1,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder1, R.drawable.placeholder1,
-                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
-                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+//        arraylist.add(new DaCardActivity(1,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder1, R.drawable.placeholder1,
+//                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+//                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+//
+//        arraylist.add(new DaCardActivity(2,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder2, R.drawable.placeholder2,
+//                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+//                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+//
+//        arraylist.add(new DaCardActivity(3,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder3, R.drawable.placeholder3,
+//                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+//                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+//
+//        arraylist.add(new DaCardActivity(4,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder4, R.drawable.placeholder4,
+//                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+//                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
+//
+//        arraylist.add(new DaCardActivity(5,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder5, R.drawable.placeholder5,
+//                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
+//                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
 
-        arraylist.add(new DaCardActivity(2,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder2, R.drawable.placeholder2,
-                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
-                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
-
-        arraylist.add(new DaCardActivity(3,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder3, R.drawable.placeholder3,
-                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
-                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
-
-        arraylist.add(new DaCardActivity(4,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder4, R.drawable.placeholder4,
-                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
-                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
-
-        arraylist.add(new DaCardActivity(5,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder5, R.drawable.placeholder5,
-                "Heres the headline: Everything is so bad i cant even. I mean the world is literally on fire."
-                , "Climate change is very real. Do not believe what your grandma says from Facebook."));
 
 
 
         //continue reading list
-        continueReadingList.add(new DaCardActivity(1,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder5, R.drawable.placeholer1,
-                "Heres the headline: Why do you think this card will have some happy news? lol"
-                , "Yeah, go back and sleep i guess."));
+//        continueReadingList.add(new DaCardActivity(1,"11:30 | Monday", "Anaya Parsons", R.drawable.iconplaceholder5, R.drawable.placeholer1,
+//                "Heres the headline: Why do you think this card will have some happy news? lol"
+//                , "Yeah, go back and sleep i guess."));
+//
+//        continueReadingList.add(new DaCardActivity(2,"12:30 | Monday", "Yoer Modher", R.drawable.iconplaceholder5, R.drawable.placeholer2,
+//                "Nothing new, everything is going down the shitter."
+//                , "And the shitter is clogged and overflowing."));
+//
+//        continueReadingList.add(new DaCardActivity(3,"03:30 | Monday", "Pipo Dab", R.drawable.iconplaceholder5, R.drawable.placeholer3,
+//                "LOL BITCOIN DOWN BAD. ETH LOSES 50% OF ITS VALUE!"
+//                , "TO THE MOOOOOOON!"));
+//
+//        continueReadingList.add(new DaCardActivity(4,"01:30 | Monday", "Doggo inc.", R.drawable.iconplaceholder5, R.drawable.placeholer4,
+//                "Doggos are dope. They are good frendos. Me like doggos."
+//                , "Doggo cute widepeepoHappy"));
+//
+//        continueReadingList.add(new DaCardActivity(5,"11:00 | Monday", "monkaW", R.drawable.iconplaceholder5, R.drawable.placeholer5,
+//                "HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAH"
+//                , "AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"));
 
-        continueReadingList.add(new DaCardActivity(2,"12:30 | Monday", "Yoer Modher", R.drawable.iconplaceholder5, R.drawable.placeholer2,
-                "Nothing new, everything is going down the shitter."
-                , "And the shitter is clogged and overflowing."));
+        //        logosPlaceHolder = new int[]{
+//                R.drawable.iconplaceholder1,
+//                R.drawable.iconplaceholder2,
+//                R.drawable.iconplaceholder3,
+//                R.drawable.iconplaceholder4,
+//                R.drawable.iconplaceholder5
+//        };
+//        continueReadingArticleImagePreviewPlaceHolder = new int[]{
+//                R.drawable.placeholer1,
+//                R.drawable.placeholer2,
+//                R.drawable.placeholer3,
+//                R.drawable.placeholer4,
+//                R.drawable.placeholer5
+//        };
+//        articleImagePreviewPlaceHolder = new int[]{
+//                R.drawable.placeholder1,
+//                R.drawable.placeholder2,
+//                R.drawable.placeholder3,
+//                R.drawable.placeholder4,
+//                R.drawable.placeholder5
+//        };
 
-        continueReadingList.add(new DaCardActivity(3,"03:30 | Monday", "Pipo Dab", R.drawable.iconplaceholder5, R.drawable.placeholer3,
-                "LOL BITCOIN DOWN BAD. ETH LOSES 50% OF ITS VALUE!"
-                , "TO THE MOOOOOOON!"));
-
-        continueReadingList.add(new DaCardActivity(4,"01:30 | Monday", "Doggo inc.", R.drawable.iconplaceholder5, R.drawable.placeholer4,
-                "Doggos are dope. They are good frendos. Me like doggos."
-                , "Doggo cute widepeepoHappy"));
-
-        continueReadingList.add(new DaCardActivity(5,"11:00 | Monday", "monkaW", R.drawable.iconplaceholder5, R.drawable.placeholer5,
-                "HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAHHAHAHAH"
-                , "AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH"));
-
-
-        logosPlaceHolder = new int[]{
-                R.drawable.iconplaceholder1,
-                R.drawable.iconplaceholder2,
-                R.drawable.iconplaceholder3,
-                R.drawable.iconplaceholder4,
-                R.drawable.iconplaceholder5
-        };
-        continueReadingArticleImagePreviewPlaceHolder = new int[]{
-                R.drawable.placeholer1,
-                R.drawable.placeholer2,
-                R.drawable.placeholer3,
-                R.drawable.placeholer4,
-                R.drawable.placeholer5
-        };
-        articleImagePreviewPlaceHolder = new int[]{
-                R.drawable.placeholder1,
-                R.drawable.placeholder2,
-                R.drawable.placeholder3,
-                R.drawable.placeholder4,
-                R.drawable.placeholder5
-        };
 
         mainMenuButton = findViewById(R.id.mainMenuButton);
         todayButton = findViewById(R.id.todayButton);
@@ -228,26 +206,28 @@ public class MainActivity extends AppCompatActivity {
 
 
         //getting strings
-        headlinesPlaceHolder = getResources().getStringArray(R.array.testHeadlines);
-        subtitlePlaceHolder = getResources().getStringArray(R.array.testSubtitles);
-        timePlaceHolder = getResources().getStringArray(R.array.timePlaceHolders);
-        authorPlaceHolder = getResources().getStringArray(R.array.authorPlaceHolders);
-        continueReadingAuthorPlaceHolder = getResources().getStringArray(R.array.continueReadingAuthorPlaceHolders);
-        continueReadingSubtitles = getResources().getStringArray(R.array.continueReadingSubtitlesPlaceholder);
-        continueReadingTimePlaceHolder = getResources().getStringArray(R.array.continueReadingTimePlaceHolders);
-        continueReadingHeadlines = getResources().getStringArray(R.array.continueReadingHeadlinesPlaceholder);
+//        headlinesPlaceHolder = getResources().getStringArray(R.array.testHeadlines);
+//        subtitlePlaceHolder = getResources().getStringArray(R.array.testSubtitles);
+//        timePlaceHolder = getResources().getStringArray(R.array.timePlaceHolders);
+//        authorPlaceHolder = getResources().getStringArray(R.array.authorPlaceHolders);
+//        continueReadingAuthorPlaceHolder = getResources().getStringArray(R.array.continueReadingAuthorPlaceHolders);
+//        continueReadingSubtitles = getResources().getStringArray(R.array.continueReadingSubtitlesPlaceholder);
+//        continueReadingTimePlaceHolder = getResources().getStringArray(R.array.continueReadingTimePlaceHolders);
+//        continueReadingHeadlines = getResources().getStringArray(R.array.continueReadingHeadlinesPlaceholder);
 
 
         //recycler view continue reading
         continueReadingRecyclerView = findViewById(R.id.continueReadingCardPreviewRecycler);
-        ContinueReadingAdapter continueReadingAdapter = new ContinueReadingAdapter(this, continueReadingList);
+        RealmResults<CardDB> cards = realm.where(CardDB.class).findAll();
+        ContinueReadingAdapter2 continueReadingAdapter = new ContinueReadingAdapter2(this, cards);
         continueReadingAdapter.setHasStableIds(true);
         continueReadingRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         continueReadingRecyclerView.setAdapter(continueReadingAdapter);
 
         //recycler view today preview
         previewRecyclerView = findViewById(R.id.todayCardPreviewRecycler);
-        CardPreviewAdapter cardPreviewAdapter = new CardPreviewAdapter(this, arraylist);
+        CardPreviewAdapter cardPreviewAdapter = new CardPreviewAdapter(this, tempList); //over here
+        Log.v("sort", "Tooooooooooooooooooooooooooooooooooooo LAAAAAAAAAAATTTTTTTTTEEEEEEEEEEEE!!!!!");
         cardPreviewAdapter.setHasStableIds(true);
         previewRecyclerView.setAdapter(cardPreviewAdapter);
         previewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -256,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
     private void fillUpDatabase() {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(@NonNull Realm realm) {
                 InputStream inputStream = getResources().openRawResource(R.raw.links);
                 try {
                     realm.createAllFromJson(LinkDB.class, inputStream);
@@ -265,8 +245,39 @@ public class MainActivity extends AppCompatActivity {
                     if(realm.isInTransaction())
                         realm.cancelTransaction();
                 }
+                LinkDBHelper helper = new LinkDBHelper(realm);
+
+                helper.deleteLinkDB(null);
+                helper.deleteLinkDB("https://www.thehindu.com/news/national/feeder/default.rss");
+                InputStream cardStream = getResources().openRawResource(R.raw.cards);
+                try {
+                    realm.createAllFromJson(CardDB.class, cardStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    if(realm.isInTransaction())
+                        realm.cancelTransaction();
+                }
             }
         });
+    }
+
+    public InputStream getInputStream(URL url) {
+        try {
+            return url.openConnection().getInputStream();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    private void getFeeds() {
+
+        RealmResults<LinkDB> urls = realm.where(LinkDB.class).findAll();
+        for(LinkDB url: urls) {
+            Log.v("DB", String.valueOf(url));
+//            FetchRssFeeds_Background fetchRssFeeds_background = new FetchRssFeeds_Background(this, url);
+            new ProcessRss_Background(this, url.getRssLink()).execute(); //stored in tempList
+        }
+        new SortRss_Background(this).execute(); //sorts and stores in articlesList
     }
 
 }

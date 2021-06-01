@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<DaCardActivity> articlesList = new ArrayList<DaCardActivity>();
     ArrayList<DaCardActivity> tempList = new ArrayList<DaCardActivity>();
     int count = 1; //for cardID in articlesList
+    private CardPreviewAdapter cardPreviewAdapter = null;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -226,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
         //recycler view today preview
         previewRecyclerView = findViewById(R.id.todayCardPreviewRecycler);
-        CardPreviewAdapter cardPreviewAdapter = new CardPreviewAdapter(this, tempList); //over here
+        cardPreviewAdapter = new CardPreviewAdapter(this, tempList); //over here
         Log.v("sort", "Tooooooooooooooooooooooooooooooooooooo LAAAAAAAAAAATTTTTTTTTEEEEEEEEEEEE!!!!!");
         cardPreviewAdapter.setHasStableIds(true);
         previewRecyclerView.setAdapter(cardPreviewAdapter);
@@ -234,39 +235,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillUpDatabase() {
-        realm.executeTransactionAsync(new Realm.Transaction() {
-            @Override
-            public void execute(@NonNull Realm realm) {
-                InputStream inputStream = getResources().openRawResource(R.raw.links);
-                try {
-                    realm.createAllFromJson(LinkDB.class, inputStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    if(realm.isInTransaction())
-                        realm.cancelTransaction();
-                }
-                LinkDBHelper helper = new LinkDBHelper(realm);
-
-                helper.deleteLinkDB(null);
-                helper.deleteLinkDB("https://www.thehindu.com/news/national/feeder/default.rss");
-                InputStream cardStream = getResources().openRawResource(R.raw.cards);
-                try {
-                    realm.createAllFromJson(CardDB.class, cardStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    if(realm.isInTransaction())
-                        realm.cancelTransaction();
-                }
+        realm.executeTransactionAsync(realm -> {
+            InputStream inputStream = getResources().openRawResource(R.raw.links);
+            try {
+                realm.createAllFromJson(LinkDB.class, inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+                if(realm.isInTransaction())
+                    realm.cancelTransaction();
+            }
+            InputStream cardStream = getResources().openRawResource(R.raw.cards);
+            try {
+                realm.createAllFromJson(CardDB.class, cardStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+                if(realm.isInTransaction())
+                    realm.cancelTransaction();
             }
         });
-    }
+        LinkDBHelper helper = new LinkDBHelper(realm);
+        helper.deleteLinkDB("http://rss.cnn.com/rss/edition.rss");
+        helper.deleteLinkDB("https://www.huffpost.com/section/front-page/feed");
 
-    public InputStream getInputStream(URL url) {
-        try {
-            return url.openConnection().getInputStream();
-        } catch (IOException e) {
-            return null;
-        }
     }
 
     private void getFeeds() {
@@ -280,4 +270,5 @@ public class MainActivity extends AppCompatActivity {
         new SortRss_Background(this).execute(); //sorts and stores in articlesList
     }
 
+    public CardPreviewAdapter getCardPreviewAdapter() { return this.cardPreviewAdapter;}
 }

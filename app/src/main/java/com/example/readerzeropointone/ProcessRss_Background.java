@@ -10,6 +10,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -61,7 +62,7 @@ public class ProcessRss_Background extends AsyncTask<Integer, Void, Exception> {
 
             XmlPullParser xpp = factory.newPullParser();
             Log.v("RSS", String.valueOf(url));
-            xpp.setInput(mainActivity.getInputStream(url), "UTF_8");
+            xpp.setInput(getInputStream(url), "UTF_8");
 
             boolean insideItem = false;
             boolean foundLogo = false;
@@ -113,8 +114,8 @@ public class ProcessRss_Background extends AsyncTask<Integer, Void, Exception> {
                         logoLink = xpp.nextText();
                     }
                 }
-                else if (eventType == XmlPullParser.END_TAG && author != "") {
-                    if (xpp.getName().equalsIgnoreCase("item") && insideItem) {
+                else if (eventType == XmlPullParser.END_TAG) {
+                    if (xpp.getName().equalsIgnoreCase("item") && insideItem && author != "") {
                         insideItem = false;
                         //create a card and add to an adapter
                         mainActivity.tempList.add(new DaCardActivity(mainActivity.count++, date, pubDate, author,
@@ -134,7 +135,6 @@ public class ProcessRss_Background extends AsyncTask<Integer, Void, Exception> {
     protected void onPostExecute(Exception e) {
         super.onPostExecute(e);
         progressDialog.dismiss();
-        Log.v("sort", "Done!");
     }
 
     private String fullDay(String pre) {
@@ -154,6 +154,14 @@ public class ProcessRss_Background extends AsyncTask<Integer, Void, Exception> {
             default:
                 return "Monday";
 
+        }
+    }
+
+    private InputStream getInputStream(URL url) {
+        try {
+            return url.openConnection().getInputStream();
+        } catch (IOException e) {
+            return null;
         }
     }
 

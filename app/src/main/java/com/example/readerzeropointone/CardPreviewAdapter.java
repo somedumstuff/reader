@@ -26,6 +26,8 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import io.realm.Realm;
+
 public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter.ViewHolder> {
 
     //local vars
@@ -38,11 +40,12 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
     Context context;
     Bitmap bitmap;
     ArrayList<DaCardActivity> localArrayList;
+    ContinueReadingAdapter2 adapter2;
 
-
-    public CardPreviewAdapter(Context ct, ArrayList arrayList){
+    public CardPreviewAdapter(Context ct, ArrayList arrayList, ContinueReadingAdapter2 adapter2){
         context = ct;
         localArrayList = arrayList;
+        this.adapter2 = adapter2;
     }
 
     @NonNull
@@ -78,7 +81,11 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
                 Uri uri = Uri.parse(daCardActivity.getCardPreviewLink());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 context.startActivity(intent);
-
+                CardDBHelper helper = new CardDBHelper(Realm.getDefaultInstance());
+                helper.addCard(daCardActivity.getCardPreviewHeadlineTextView(), daCardActivity.getCardPreviewSubtitleTextView(),
+                        daCardActivity.getCardPreviewTimeTextView(), daCardActivity.getCardPreviewAuthorTextView(), daCardActivity.getCardPreviewSiteLogoUrl(),
+                        daCardActivity.getCardPreviewArticleImageUrl(), daCardActivity.getCardPreviewLink());
+                adapter2.notifyDataSetChanged();
 //                int pos = holder.getAbsoluteAdapterPosition();
 //                DaCardActivity daCardActivity = (DaCardActivity) localArrayList.get(pos);
 //                Context context = holder.itemView.getContext();
@@ -127,7 +134,5 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
             cardPreviewHeadline = itemView.findViewById(R.id.cardPreviewHeadlineTextView);
         }
     }
-
-
 
 }

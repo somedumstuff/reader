@@ -8,23 +8,25 @@ public class CardDBHelper {
 
     public CardDBHelper(Realm realm) { this.realm = realm;}
 
-    public void addCard(String headline, String subtitle, String time, String author, String siteLogoImageLink, String articleImageLink) {
+    public void addCard(String headline, String subtitle, String time, String author, String siteLogoImageLink, String articleImageLink, String articleLink) {
         realm.executeTransactionAsync(r -> {
-            CardDB card = new CardDB();
-            card.setHeadline(headline);
+            CardDB card = new CardDB(headline);
             card.setSubtitle(subtitle);
             card.setTime(time);
             card.setAuthor(author);
             if(siteLogoImageLink != null)
-            card.setSiteLogoImageLink(siteLogoImageLink);
+                card.setSiteLogoImageLink(siteLogoImageLink);
             if(articleImageLink != null)
-            card.setArticleImageLink(articleImageLink);
+                card.setArticleImageLink(articleImageLink);
+            if(articleLink != null)
+                card.setArticleLink(articleLink);
+            r.insertOrUpdate(card);
         });
     }
 
     public void deleteCard(String headline) {
         realm.executeTransactionAsync(r -> {
-            CardDB card = realm.where(CardDB.class).equalTo("headline", headline).findFirst();
+            CardDB card = r.where(CardDB.class).equalTo("headline", headline).findFirst();
             if (card != null) {
                 card.deleteFromRealm();
             }

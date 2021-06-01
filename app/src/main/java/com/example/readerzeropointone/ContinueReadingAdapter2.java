@@ -1,7 +1,9 @@
 package com.example.readerzeropointone;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Debug;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.net.URI;
 
 import io.realm.OrderedRealmCollection;
 import io.realm.Realm;
@@ -50,21 +55,20 @@ public class ContinueReadingAdapter2 extends RealmRecyclerViewAdapter<CardDB, Co
             holder.cardPreviewTimeTextView.setText(card.getTime());
             holder.cardPreviewSubtitle.setText(card.getSubtitle());
             holder.cardPreviewHeadline.setText(card.getHeadline());
-            Log.v("DB", card.getHeadline());
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int pos = holder.getAbsoluteAdapterPosition();
-                    Context context = holder.itemView.getContext();
-                    Intent intent = new Intent(context, ArticleActivity.class);
-                    intent.putExtra("AUTHOR", card.getAuthor());
-                    intent.putExtra("TIME", card.getTime());
-                    intent.putExtra("SUBTITLE", card.getSubtitle());
-                    intent.putExtra("HEADLINE", card.getHeadline());
-                    intent.putExtra("ARTICLE_IMAGE", card.getArticleImageLink());
-                    intent.putExtra("SITE_LOGO", card.getSiteLogoImageLink());
-                    context.startActivity(intent);
+                    try {
+                        Uri uri = Uri.parse(card.getArticleLink());
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        context.startActivity(intent);
+                        CardDBHelper helper = new CardDBHelper(Realm.getDefaultInstance());
+                        helper.deleteCard(card.getHeadline());
+                    } catch (ActivityNotFoundException e) {
+                        e.printStackTrace();
+                        Toast.makeText(context, "Something went wrong....", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }

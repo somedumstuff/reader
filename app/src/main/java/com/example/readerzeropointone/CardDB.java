@@ -19,6 +19,11 @@ public class CardDB extends RealmObject {
     private String author;
     private String siteLogoImageLink;
     private String articleImageLink;
+    private String articleLink;
+
+    public CardDB() {}
+
+    public CardDB(String headline) { this.headline = headline;}
 
     public void setHeadline(String headline) { this.headline = headline;}
     public String getHeadline() { return headline;}
@@ -37,5 +42,8 @@ public class CardDB extends RealmObject {
 
     public void setArticleImageLink(String articleImageLink) { this.articleImageLink = articleImageLink;}
     public String getArticleImageLink() { return articleImageLink;}
+
+    public void setArticleLink(String articleLink) { this.articleLink = articleLink;}
+    public String getArticleLink() { return this.articleLink;}
 
 }

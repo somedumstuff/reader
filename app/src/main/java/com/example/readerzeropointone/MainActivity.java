@@ -19,9 +19,13 @@ import android.widget.ScrollView;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<DaCardActivity> tempList = new ArrayList<DaCardActivity>();
     int count = 1; //for cardID in articlesList
     private CardPreviewAdapter cardPreviewAdapter = null;
+    private ContinueReadingAdapter2 continueReadingAdapter = null;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -165,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
                 if(!menuOpen){
                     menuOpen = obj.openMenu(mainMenuButton);
                     obj.clickAnim(mainMenuButton);
+                    String date = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(new Date());
+                    todayButton.setText(date.substring(0,2) + suffix(date) + date.substring(3));
                     obj.showMenuItems(yepBlow, todayButton, savedButton, subsButton, addNewSubButton);
                     subsButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -178,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(openYourSubs);
                                 }
                             }, 800);
-
                         }
                     });
 
@@ -203,6 +209,24 @@ public class MainActivity extends AppCompatActivity {
                     obj.closeMenuItems(yepBlow, todayButton, savedButton, subsButton, addNewSubButton);
                 }
             }
+
+            private String suffix(String date) {
+                int day = Integer.parseInt(date.substring(0,2));
+                switch (day) {
+                    case 21:
+                    case 31:
+                    case 1:
+                        return "st";
+                    case 2:
+                    case 22:
+                        return "nd";
+                    case 3:
+                    case 23:
+                        return "rd";
+                    default:
+                        return "th";
+                }
+            }
         });
 
 
@@ -220,15 +244,14 @@ public class MainActivity extends AppCompatActivity {
         //recycler view continue reading
         continueReadingRecyclerView = findViewById(R.id.continueReadingCardPreviewRecycler);
         RealmResults<CardDB> cards = realm.where(CardDB.class).findAll();
-        ContinueReadingAdapter2 continueReadingAdapter = new ContinueReadingAdapter2(this, cards);
+        continueReadingAdapter = new ContinueReadingAdapter2(this, cards);
         continueReadingAdapter.setHasStableIds(true);
         continueReadingRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         continueReadingRecyclerView.setAdapter(continueReadingAdapter);
 
         //recycler view today preview
         previewRecyclerView = findViewById(R.id.todayCardPreviewRecycler);
-        cardPreviewAdapter = new CardPreviewAdapter(this, tempList); //over here
-        Log.v("sort", "Tooooooooooooooooooooooooooooooooooooo LAAAAAAAAAAATTTTTTTTTEEEEEEEEEEEE!!!!!");
+        cardPreviewAdapter = new CardPreviewAdapter(this, tempList, this.continueReadingAdapter); //over here
         cardPreviewAdapter.setHasStableIds(true);
         previewRecyclerView.setAdapter(cardPreviewAdapter);
         previewRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -254,9 +277,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         LinkDBHelper helper = new LinkDBHelper(realm);
-        helper.deleteLinkDB("http://rss.cnn.com/rss/edition.rss");
         helper.deleteLinkDB("https://www.huffpost.com/section/front-page/feed");
-
     }
 
     private void getFeeds() {
@@ -271,4 +292,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public CardPreviewAdapter getCardPreviewAdapter() { return this.cardPreviewAdapter;}
+
+    public ContinueReadingAdapter2 getContinueReadingAdapter() { return this.continueReadingAdapter;}
 }

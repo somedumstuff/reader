@@ -84,7 +84,7 @@ public class YourSubsActivity  extends AppCompatActivity {
         });
 
         RecyclerView yourSubsRecyclerView = findViewById(R.id.yourSubsRecyclerView);
-        GridLayoutManager yourSubsGridLayoutManager = new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false);
+        GridLayoutManager yourSubsGridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         YourSubsAdapter yourSubsAdapter = new YourSubsAdapter(this, logosUrl);
         yourSubsRecyclerView.setLayoutManager(yourSubsGridLayoutManager);
         yourSubsRecyclerView.setAdapter(yourSubsAdapter);

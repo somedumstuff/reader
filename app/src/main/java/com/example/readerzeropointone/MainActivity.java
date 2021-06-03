@@ -36,20 +36,20 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity {
 
     boolean menuOpen = false;
-    ExecutorService executorService = Executors.newFixedThreadPool(3);
-    String[] headlinesPlaceHolder, continueReadingHeadlines;
-    String[] subtitlePlaceHolder, continueReadingSubtitles;
-    int[] logosPlaceHolder, getContinueReadingArticleLogoPreviewPlaceHolder;
-    int[] articleImagePreviewPlaceHolder, continueReadingArticleImagePreviewPlaceHolder;
-    String[] timePlaceHolder, continueReadingTimePlaceHolder;
-    String[] authorPlaceHolder, continueReadingAuthorPlaceHolder;
+//    ExecutorService executorService = Executors.newFixedThreadPool(3);
+//    String[] headlinesPlaceHolder, continueReadingHeadlines;
+//    String[] subtitlePlaceHolder, continueReadingSubtitles;
+//    int[] logosPlaceHolder, getContinueReadingArticleLogoPreviewPlaceHolder;
+//    int[] articleImagePreviewPlaceHolder, continueReadingArticleImagePreviewPlaceHolder;
+//    String[] timePlaceHolder, continueReadingTimePlaceHolder;
+//    String[] authorPlaceHolder, continueReadingAuthorPlaceHolder;
+//    ScrollView scrollViewActivityMain, continueReadingScrollView;
+//    RenderScript renderScript;
     RecyclerView previewRecyclerView, continueReadingRecyclerView;
-    ScrollView scrollViewActivityMain, continueReadingScrollView;
     Button todayButton, savedButton, subsButton, addNewSubButton;
     ImageButton mainMenuButton;
     ImageView yepBlow;
     View parentActivityMain, buttonContainerActivityMain;
-    RenderScript renderScript;
     private Realm realm;
     ArrayList<DaCardActivity> articlesList = new ArrayList<DaCardActivity>();
     ArrayList<DaCardActivity> tempList = new ArrayList<DaCardActivity>();
@@ -267,14 +267,14 @@ public class MainActivity extends AppCompatActivity {
                 if(realm.isInTransaction())
                     realm.cancelTransaction();
             }
-            InputStream cardStream = getResources().openRawResource(R.raw.cards);
-            try {
-                realm.createAllFromJson(CardDB.class, cardStream);
-            } catch (IOException e) {
-                e.printStackTrace();
-                if(realm.isInTransaction())
-                    realm.cancelTransaction();
-            }
+//            InputStream cardStream = getResources().openRawResource(R.raw.cards);
+//            try {
+//                realm.createAllFromJson(CardDB.class, cardStream);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                if(realm.isInTransaction())
+//                    realm.cancelTransaction();
+//            }
         });
         LinkDBHelper helper = new LinkDBHelper(realm);
         helper.deleteLinkDB("https://www.huffpost.com/section/front-page/feed");

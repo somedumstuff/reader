@@ -1,0 +1,38 @@
+[
+  {
+    "rssLink": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+    "domain": "rss.nytimes.com",
+    "category": "world",
+    "tags": ["nytimes", "world"]
+  },
+  {
+    "rssLink": "https://www.politico.com/rss/politicopicks.xml",
+    "domain": "politico.com",
+    "category": "politics",
+    "tags": ["politico", "world"]
+  },
+  {
+    "rssLink": "https://www.latimes.com/local/rss2.0.xml",
+    "domain": "latimes.com",
+    "category": "news",
+    "tags": ["latimes", "news"]
+  },
+  {
+    "rssLink": "https://indianexpress.com/print/front-page/feed/",
+    "domain": "indianexpress.com",
+    "category": "news",
+    "tags": ["indianexpress", "news"]
+  },
+  {
+    "rssLink": "http://tass.com/rss/v2.xml?sections=NDg4Mw==",
+    "domain": "tass.com",
+    "category": "world",
+    "tags": ["tass", "world"]
+  },
+  {
+    "rssLink": "http://irishspaceblog.blogspot.com/feeds/posts/default?alt=rss",
+    "domain": "irishspaceblog.blogspot.com",
+    "category": "world",
+    "tags": ["irishspaceblog", "world"]
+  }
+]

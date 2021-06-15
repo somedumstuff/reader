@@ -1,6 +1,5 @@
 package com.example.readerzeropointone;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +17,8 @@ import android.widget.ScrollView;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -36,7 +31,7 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity {
 
     boolean menuOpen = false;
-//    ExecutorService executorService = Executors.newFixedThreadPool(3);
+    //    ExecutorService executorService = Executors.newFixedThreadPool(3);
 //    String[] headlinesPlaceHolder, continueReadingHeadlines;
 //    String[] subtitlePlaceHolder, continueReadingSubtitles;
 //    int[] logosPlaceHolder, getContinueReadingArticleLogoPreviewPlaceHolder;
@@ -259,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillUpDatabase() {
         realm.executeTransactionAsync(realm -> {
-            InputStream inputStream = getResources().openRawResource(R.raw.links);
+            InputStream inputStream = getResources().openRawResource(R.raw.links2);
             try {
                 realm.createAllFromJson(LinkDB.class, inputStream);
             } catch (IOException e) {

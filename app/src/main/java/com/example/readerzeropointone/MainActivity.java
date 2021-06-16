@@ -224,18 +224,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        //getting strings
-//        headlinesPlaceHolder = getResources().getStringArray(R.array.testHeadlines);
-//        subtitlePlaceHolder = getResources().getStringArray(R.array.testSubtitles);
-//        timePlaceHolder = getResources().getStringArray(R.array.timePlaceHolders);
-//        authorPlaceHolder = getResources().getStringArray(R.array.authorPlaceHolders);
-//        continueReadingAuthorPlaceHolder = getResources().getStringArray(R.array.continueReadingAuthorPlaceHolders);
-//        continueReadingSubtitles = getResources().getStringArray(R.array.continueReadingSubtitlesPlaceholder);
-//        continueReadingTimePlaceHolder = getResources().getStringArray(R.array.continueReadingTimePlaceHolders);
-//        continueReadingHeadlines = getResources().getStringArray(R.array.continueReadingHeadlinesPlaceholder);
-
-
         //recycler view continue reading
         continueReadingRecyclerView = findViewById(R.id.continueReadingCardPreviewRecycler);
         RealmResults<CardDB> cards = realm.where(CardDB.class).findAll();
@@ -254,9 +242,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillUpDatabase() {
         realm.executeTransactionAsync(realm -> {
-            InputStream inputStream = getResources().openRawResource(R.raw.links2);
+            InputStream inputStream2 = getResources().openRawResource(R.raw.links2);
+            InputStream inputStream = getResources().openRawResource(R.raw.links);
             try {
-                realm.createAllFromJson(LinkDB.class, inputStream);
+                realm.createAllFromJson(LinkDB.class, inputStream2);
+                realm.createAllFromJson(AddedLinkDB.class, inputStream);
             } catch (IOException e) {
                 e.printStackTrace();
                 if(realm.isInTransaction())
@@ -271,14 +261,14 @@ public class MainActivity extends AppCompatActivity {
 //                    realm.cancelTransaction();
 //            }
         });
-        LinkDBHelper helper = new LinkDBHelper(realm);
+        AddedLinkDBHelper helper = new AddedLinkDBHelper(realm);
         helper.deleteLinkDB("https://www.huffpost.com/section/front-page/feed");
     }
 
     private void getFeeds() {
 
-        RealmResults<LinkDB> urls = realm.where(LinkDB.class).findAll();
-        for(LinkDB url: urls) {
+        RealmResults<AddedLinkDB> urls = realm.where(AddedLinkDB.class).findAll();
+        for(AddedLinkDB url: urls) {
             Log.v("DB", String.valueOf(url));
 //            FetchRssFeeds_Background fetchRssFeeds_background = new FetchRssFeeds_Background(this, url);
             new ProcessRss_Background(this, url.getRssLink()).execute(); //stored in tempList

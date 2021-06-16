@@ -1,14 +1,18 @@
 [
   {
-    "rssLink": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+    "rssLink": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+    "category": "world"
   },
   {
-    "rssLink": "https://www.politico.com/rss/politicopicks.xml"
+    "rssLink": "https://www.politico.com/rss/politicopicks.xml",
+    "category": "world"
   },
   {
-    "rssLink": "https://www.latimes.com/local/rss2.0.xml"
+    "rssLink": "https://www.latimes.com/local/rss2.0.xml",
+    "category": "news"
   },
   {
-    "rssLink": "https://indianexpress.com/print/front-page/feed/"
+    "rssLink": "https://indianexpress.com/print/front-page/feed/",
+    "category": "news"
   }
 ]

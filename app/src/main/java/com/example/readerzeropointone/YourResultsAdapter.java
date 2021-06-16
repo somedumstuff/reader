@@ -29,7 +29,7 @@ public class YourResultsAdapter extends RecyclerView.Adapter<YourResultsAdapter.
     Context context;
     ArrayList<YourResultCard> localArrayList;
 
-    public YourResultsAdapter(Context ct, ArrayList yourResultsList){
+    public YourResultsAdapter(Context ct, ArrayList<YourResultCard> yourResultsList){
         context = ct;
         localArrayList = yourResultsList;
     }
@@ -38,7 +38,7 @@ public class YourResultsAdapter extends RecyclerView.Adapter<YourResultsAdapter.
     @Override
     public YourResultsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.continue_reading_cards, parent, false);
+        View view = layoutInflater.inflate(R.layout.result_card, parent, false);
         return new YourResultsAdapter.ViewHolder(view);
     }
 
@@ -59,10 +59,11 @@ public class YourResultsAdapter extends RecyclerView.Adapter<YourResultsAdapter.
         resultSiteLink = yourResults.getResultSiteLink();
         resultSiteDescritpion = yourResults.getResultSiteDesc();
         logo = yourResults.getResultSiteLogo();
+        Log.v("logo", logo);
 
-        Picasso.get().load(logo).into(holder.resultSiteLogo);
         holder.resultRssLink.setText(resultRssLink);
         holder.resultSiteLink.setText(resultSiteLink);
+        Picasso.get().load(logo).into(holder.resultSiteLogo);
 
     }
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,6 +19,8 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import io.realm.Realm;
 
 public class YourResultsAdapter extends RecyclerView.Adapter<YourResultsAdapter.ViewHolder>{
 
@@ -65,6 +68,17 @@ public class YourResultsAdapter extends RecyclerView.Adapter<YourResultsAdapter.
         holder.resultSiteLink.setText(resultSiteLink);
         Picasso.get().load(logo).into(holder.resultSiteLogo);
 
+        holder.resultAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AddedLinkDBHelper helper = new AddedLinkDBHelper(Realm.getDefaultInstance());
+                helper.addNewLink(resultRssLink, resultSiteDescritpion);
+                Toast.makeText(context.getApplicationContext(), "Added Link", Toast.LENGTH_LONG).show();
+                ((YourResults)context).finish();
+            }
+        });
+
     }
 
     @Override
@@ -77,6 +91,7 @@ public class YourResultsAdapter extends RecyclerView.Adapter<YourResultsAdapter.
         TextView resultSiteLink;
         TextView resultRssDescription;
         ImageView resultSiteLogo;
+        ImageView resultAddButton;
         public ViewHolder(@NonNull  View itemView) {
             super(itemView);
             context = itemView.getContext();
@@ -84,6 +99,7 @@ public class YourResultsAdapter extends RecyclerView.Adapter<YourResultsAdapter.
             resultRssLink = itemView.findViewById(R.id.resultRssLink);
             resultSiteLink = itemView.findViewById(R.id.resultSiteLink);
             resultRssDescription = itemView.findViewById(R.id.resultRssDescription);
+            resultAddButton = itemView.findViewById(R.id.buttonToAdd);
         }
     }
 }

@@ -2,12 +2,12 @@ package com.example.readerzeropointone;
 
 import android.icu.text.SimpleDateFormat;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Date;
-
-public class YourResultCard {
+public class YourResultCard implements Serializable {
 
     //id
     final private int cardID;
@@ -20,11 +20,11 @@ public class YourResultCard {
     //site description
     final private String resultSiteDesc;
     public YourResultCard(int cardID, String resultSiteLogo, String resultRssLink,
-                          String resultSiteLike, String resultSiteDec) {
+                          String resultSiteLink, String resultSiteDec) {
         this.cardID = cardID;
-        this.resultSiteLogo = resultSiteLogo != null? resultSiteLogo: "https://source.android.com/setup/images/Android_symbol_green_RGB.png";
+        this.resultSiteLogo = "https://source.android.com/setup/images/Android_symbol_green_RGB.png";
         this.resultRssLink = resultRssLink;
-        this.resultSiteLink = resultSiteLike;
+        this.resultSiteLink = resultSiteLink;
         this.resultSiteDesc = resultSiteDec;
     }
 

@@ -1,5 +1,6 @@
 package com.example.readerzeropointone;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,16 +37,17 @@ public class AddSubActivity extends AppCompatActivity {
             "eu", "us", "ng", "io", "gq", "net", "au", "int" };
     public static final Set<String> MY_SET = new HashSet<>(Arrays.asList(SET_VALUES));
 
+    private int id = 1;
     boolean menuOpen = false;
     Button todayButton, savedButton, subsButton, addNewSubButton, addThisLinkButton;
     ImageButton mainMenuButton;
     ImageView yepBlow;
     EditText queryEntry;
-
+    public ArrayList<YourResultCard> searchResultsList = new ArrayList<YourResultCard>();
     private Realm realm;
 
     // testing
-    Button displayLinks;
+    Button searchButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,15 +136,21 @@ public class AddSubActivity extends AppCompatActivity {
             }
         });
 
-
-
         // for testing purposes
-        displayLinks = findViewById(R.id.displayLinks);
-        displayLinks.setOnClickListener(new View.OnClickListener() {
+        searchButton = findViewById(R.id.displayLinks);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Context context = AddSubActivity.this;
+                        Intent intent = new Intent(context, YourResults.class);
+                        intent.putExtra("searchResultsList", searchResultsList);
+                        context.startActivity(intent);
+                    }
+                });
                 String query = queryEntry.getText().toString();
                 if(query.equals("")) {
                     Set<String> listOrderedSet = new LinkDBHelper(realm).getAllLinkDB();
@@ -152,9 +161,16 @@ public class AddSubActivity extends AppCompatActivity {
                     Set<String> set = new LinkDBHelper(realm).getAllLinkDB(query);
                     for (String str:set) {
                         Log.v("DB", str);
+                        //add to array list for displaying
+                        //str is the rssLink
+                        LinkDB link = realm.where(LinkDB.class).equalTo("rssLink", str).findFirst();
+                        YourResultCard card = new YourResultCard(id++, null, str, null, link != null ? null :link.getCategory() );
+                        searchResultsList.add(card);
                     }
                 }
             }
+
+
         });
     }
 

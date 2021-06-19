@@ -24,34 +24,33 @@ public class YourResults extends AppCompatActivity {
         setContentView(R.layout.your_results_layout);
 
         ArrayList<YourResultCard> arraylist = new ArrayList<YourResultCard>();
+        arraylist = (ArrayList<YourResultCard>) getIntent().getSerializableExtra("searchResultsList");
 
-
-        arraylist.add(new YourResultCard(1,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
-                "rss.cnn.com",
-                "cnn.com"
-                , "This is a description"));
-
-
-        arraylist.add(new YourResultCard(2,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
-                "rss.cnn.com",
-                "cnn.com"
-                , "This is a description"));
-
-        arraylist.add(new YourResultCard(3,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
-                "rss.cnn.com",
-                "cnn.com"
-                , "This is a description"));
-
-        arraylist.add(new YourResultCard(4,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
-                "rss.cnn.com",
-                "cnn.com"
-                , "This is a description"));
-
-        arraylist.add(new YourResultCard(5,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
-                "rss.cnn.com",
-                "cnn.com"
-                , "This is a description"));
-
+//        arraylist.add(new YourResultCard(1,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
+//                "rss.cnn.com",
+//                "cnn.com"
+//                , "This is a description"));
+//
+//
+//        arraylist.add(new YourResultCard(2,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
+//                "rss.cnn.com",
+//                "cnn.com"
+//                , "This is a description"));
+//
+//        arraylist.add(new YourResultCard(3,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
+//                "rss.cnn.com",
+//                "cnn.com"
+//                , "This is a description"));
+//
+//        arraylist.add(new YourResultCard(4,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
+//                "rss.cnn.com",
+//                "cnn.com"
+//                , "This is a description"));
+//
+//        arraylist.add(new YourResultCard(5,"https://source.android.com/setup/images/Android_symbol_green_RGB.png",
+//                "rss.cnn.com",
+//                "cnn.com"
+//                , "This is a description"));
 
         yourResultsRecylerView = findViewById(R.id.yourResultsRecyclerView);
         yourResultsAdapter = new YourResultsAdapter(this, arraylist); //over here

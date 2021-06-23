@@ -33,8 +33,8 @@ import io.realm.RealmList;
 public class AddSubActivity extends AppCompatActivity {
 
     public static final String[] SET_VALUES = new String[] { "www", "feed", "feeds", "rss", "com",
-            "co", "in", "ca", "uk", "blogspot", "nz", "org",
-            "eu", "us", "ng", "io", "gq", "net", "au", };
+            "co", "in", "ca", "uk", "blogspot", "nz", "org", "info", "blog", "ch", "inc", "go",
+            "eu", "us", "ng", "io", "gq", "net", "au", "int" };
     public static final Set<String> MY_SET = new HashSet<>(Arrays.asList(SET_VALUES));
 
     private int id = 1;

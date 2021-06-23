@@ -147,6 +147,11 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
                         });
                     }
                 });
+                CardDBHelper helper = new CardDBHelper(Realm.getDefaultInstance());
+                helper.addCard(daCardActivity.getCardPreviewHeadlineTextView(), daCardActivity.getCardPreviewSubtitleTextView(),
+                        daCardActivity.getCardPreviewTimeTextView(), daCardActivity.getCardPreviewAuthorTextView(), daCardActivity.getCardPreviewSiteLogoUrl(),
+                        daCardActivity.getCardPreviewArticleImageUrl(), daCardActivity.getCardPreviewLink());
+                adapter2.notifyDataSetChanged();
             }
 
 //            public void onClick(View v) {
@@ -154,22 +159,8 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
 //                Uri uri = Uri.parse(daCardActivity.getCardPreviewLink());
 //                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //                context.startActivity(intent);
-//                CardDBHelper helper = new CardDBHelper(Realm.getDefaultInstance());
-//                helper.addCard(daCardActivity.getCardPreviewHeadlineTextView(), daCardActivity.getCardPreviewSubtitleTextView(),
-//                        daCardActivity.getCardPreviewTimeTextView(), daCardActivity.getCardPreviewAuthorTextView(), daCardActivity.getCardPreviewSiteLogoUrl(),
-//                        daCardActivity.getCardPreviewArticleImageUrl(), daCardActivity.getCardPreviewLink());
-//                adapter2.notifyDataSetChanged();
 ////                int pos = holder.getAbsoluteAdapterPosition();
 ////                DaCardActivity daCardActivity = (DaCardActivity) localArrayList.get(pos);
-////                Context context = holder.itemView.getContext();
-////                Intent intent = new Intent(context, ArticleActivity.class);
-////                intent.putExtra("AUTHOR", daCardActivity.getCardPreviewAuthorTextView());
-////                intent.putExtra("TIME", daCardActivity.getCardPreviewTimeTextView());
-////                intent.putExtra("SUBTITLE", daCardActivity.getCardPreviewSubtitleTextView());
-////                intent.putExtra("HEADLINE", daCardActivity.getCardPreviewHeadlineTextView());
-////                intent.putExtra("ARTICLE_IMAGE", daCardActivity.getCardPreviewArticleImageUrl());
-////                intent.putExtra("SITE_LOGO", daCardActivity.getCardPreviewSiteLogoUrl());
-////                context.startActivity(intent);
 //            }
         });
     }

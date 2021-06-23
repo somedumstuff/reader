@@ -26,7 +26,8 @@ public class ProcessRss_Background extends AsyncTask<Integer, Void, Exception> {
     String headline = null;
     String subtitle = null;
     String author = null;
-    Date date = null;
+    Date time = null;
+    String date = null;
     String pubDate = null;
     String link = null;
     String articleImageLink = null;
@@ -92,11 +93,11 @@ public class ProcessRss_Background extends AsyncTask<Integer, Void, Exception> {
                         String time = pubDate.substring(17, 22);
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("EEEE, dd MMMM yyyy HH:mm:ss Z");
                         try {
-                            date = format.parse(pubDate);
+                            this.time = format.parse(pubDate);
                         } catch (ParseException e) { e.printStackTrace();}
+                        date = pubDate.substring(5,16);
                         pubDate = time + " | " + day;
                         Log.v("RSS", pubDate);
-                        Log.v("RSS", String.valueOf(date));
                     }
                     else if ((xpp.getName().equalsIgnoreCase("dc:creator") || (xpp.getName().equalsIgnoreCase("author"))) && insideItem) {
                         author = xpp.nextText();
@@ -118,9 +119,9 @@ public class ProcessRss_Background extends AsyncTask<Integer, Void, Exception> {
                     if (xpp.getName().equalsIgnoreCase("item") && insideItem && author != "") {
                         insideItem = false;
                         //create a card and add to an adapter
-                        mainActivity.tempList.add(new DaCardActivity(mainActivity.count++, date, pubDate, author,
+                        mainActivity.tempList.add(new DaCardActivity(mainActivity.count++, time, date, pubDate, author,
                                 logoLink, articleImageLink, headline, subtitle, link));
-                        num++; date = null; pubDate = null; author = null; articleImageLink = null; headline = null; subtitle = null; link = null;
+                        num++; time = null; pubDate = null; author = null; articleImageLink = null; headline = null; subtitle = null; link = null;
                     }
                 }
                 eventType = xpp.next();

@@ -1,6 +1,5 @@
 package com.example.readerzeropointone;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -27,7 +26,7 @@ public class SortRss_Background extends AsyncTask<Integer, Void, Void> {
         Log.v("sort", "sorted!");
         int count = mainActivity.tempList.size();
         for(DaCardActivity card: mainActivity.tempList) {
-            mainActivity.articlesList.add(new DaCardActivity(count--, card.getCardPreviewDate(), card.getCardPreviewTimeTextView(),
+            mainActivity.articlesList.add(new DaCardActivity(count--, card.getCardPreviewTime(), card.getCardPreviewDate(), card.getCardPreviewTimeTextView(),
                     card.getCardPreviewAuthorTextView(), card.getCardPreviewSiteLogoUrl(), card.getCardPreviewArticleImageUrl(),
                     card.getCardPreviewHeadlineTextView(), card.getCardPreviewSubtitleTextView(), card.getCardPreviewLink()));
             Log.v("sort", "tempList" + String.valueOf(card.getCardID()));
@@ -50,8 +49,8 @@ public class SortRss_Background extends AsyncTask<Integer, Void, Void> {
 
         @Override
         public int compare(DaCardActivity card1, DaCardActivity card2) {
-            Log.v("sort", String.valueOf(-card1.getCardPreviewDate().compareTo(card2.getCardPreviewDate())));
-            return -card1.getCardPreviewDate().compareTo(card2.getCardPreviewDate());
+            Log.v("sort", String.valueOf(-card1.getCardPreviewTime().compareTo(card2.getCardPreviewTime())));
+            return -card1.getCardPreviewTime().compareTo(card2.getCardPreviewTime());
         }
     }
 }

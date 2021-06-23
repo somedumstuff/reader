@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 realm.createAllFromJson(LinkDB.class, inputStream2);
                 realm.createAllFromJson(AddedLinkDB.class, inputStream);
+//                realm.delete(CardDB.class); // uncomment this to clear the cards.
             } catch (IOException e) {
                 e.printStackTrace();
                 if(realm.isInTransaction())

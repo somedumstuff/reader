@@ -1,10 +1,5 @@
 package com.example.readerzeropointone;
 
-import android.icu.text.SimpleDateFormat;
-
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Date;
 
 public class DaCardActivity {
@@ -25,15 +20,16 @@ public class DaCardActivity {
     final private String cardPreviewSubtitleTextView;
     //link
     final private String cardPreviewLink;
-
     //time for sorting
-    final private Date cardPreviewDate;
+    final private Date cardPreviewTime;
 
-    public DaCardActivity(int cardID, Date cardPreviewDate, String cardPreviewTimeTextView, String cardPreviewAuthorTextView,
+    final private String cardPreviewDate;
+
+    public DaCardActivity(int cardID, Date cardPreviewTime, String cardPreviewDate, String cardPreviewTimeTextView, String cardPreviewAuthorTextView,
                           String cardPreviewSiteLogoUrl, String cardPreviewArticleImageUrl, String cardPreviewHeadlineTextView,
                           String cardPreviewSubtitleTextView, String cardPreviewLink) {
         this.cardID = cardID;
-        this.cardPreviewDate = cardPreviewDate != null? cardPreviewDate: new Date();
+        this.cardPreviewTime = cardPreviewTime != null? cardPreviewTime : new Date();
         this.cardPreviewTimeTextView = cardPreviewTimeTextView;
         this.cardPreviewAuthorTextView = cardPreviewAuthorTextView;
         this.cardPreviewSiteLogoUrl = cardPreviewSiteLogoUrl != null? cardPreviewSiteLogoUrl: "https://source.android.com/setup/images/Android_symbol_green_RGB.png";
@@ -41,14 +37,15 @@ public class DaCardActivity {
         this.cardPreviewHeadlineTextView = cardPreviewHeadlineTextView;
         this.cardPreviewSubtitleTextView = cardPreviewSubtitleTextView;
         this.cardPreviewLink = cardPreviewLink;
+        this.cardPreviewDate = cardPreviewDate;
     }
 
     public int getCardID() {
         return cardID;
     }
 
-    public Date getCardPreviewDate() {
-        return cardPreviewDate;
+    public Date getCardPreviewTime() {
+        return cardPreviewTime;
     }
 
     public String getCardPreviewTimeTextView() {
@@ -79,4 +76,7 @@ public class DaCardActivity {
         return cardPreviewLink;
     }
 
+    public String getCardPreviewDate() {
+        return cardPreviewDate;
+    }
 }

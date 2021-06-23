@@ -2,11 +2,7 @@ package com.example.readerzeropointone;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -17,9 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.MemoryPolicy;
@@ -29,9 +22,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -149,7 +140,7 @@ public class CardPreviewAdapter  extends RecyclerView.Adapter<CardPreviewAdapter
                 });
                 CardDBHelper helper = new CardDBHelper(Realm.getDefaultInstance());
                 helper.addCard(daCardActivity.getCardPreviewHeadlineTextView(), daCardActivity.getCardPreviewSubtitleTextView(),
-                        daCardActivity.getCardPreviewTimeTextView(), daCardActivity.getCardPreviewAuthorTextView(), daCardActivity.getCardPreviewSiteLogoUrl(),
+                        daCardActivity.getCardPreviewDate(), daCardActivity.getCardPreviewAuthorTextView(), daCardActivity.getCardPreviewSiteLogoUrl(),
                         daCardActivity.getCardPreviewArticleImageUrl(), daCardActivity.getCardPreviewLink());
                 adapter2.notifyDataSetChanged();
             }

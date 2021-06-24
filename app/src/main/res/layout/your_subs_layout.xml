@@ -10,9 +10,8 @@
         android:id="@+id/yourSubsTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:text="Your Subs"
-        android:layout_marginStart="10dp"
-        android:paddingStart="20dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
         android:letterSpacing="-0.05"
@@ -26,8 +25,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintStart_toStartOf="@id/yourSubsTitle"
-        app:layout_constraintTop_toBottomOf="@+id/yourSubsTitle">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/yourSubsRecyclerView"

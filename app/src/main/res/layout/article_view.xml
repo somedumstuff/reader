@@ -155,7 +155,6 @@
         android:fontFamily="@font/geosanslight"
         android:textColor="#000"
         android:textSize="22sp"
-        android:justificationMode="inter_word"
         />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

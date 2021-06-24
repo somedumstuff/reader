@@ -4,16 +4,28 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yourSubsTitleTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Results"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:letterSpacing="-0.05"
+        android:textSize="70sp"
+        android:fontFamily="@font/montserratextralight"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/yourResultsRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintTop_toBottomOf="@+id/yourSubsTitleTextView">
 
 
     </androidx.recyclerview.widget.RecyclerView>

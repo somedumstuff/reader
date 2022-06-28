@@ -1,4 +1,4 @@
-# Reader app - A RSS reader for android app.
+# Reader app - A RSS reader for android.
 
 |Contributor|Role|
 |----|-----|
